@@ -1,11 +1,11 @@
 import { Flex, Segmented, Dropdown, Space, Select, Button } from "antd";
 
 import {
-  AppstoreOutlined,
-  BarsOutlined,
-  DownOutlined,
-  MinusOutlined,
-  PlusOutlined,
+    AppstoreOutlined,
+    BarsOutlined,
+    DownOutlined, FilePdfOutlined,
+    MinusOutlined,
+    PlusOutlined,
 } from "@ant-design/icons";
 
 const { Group: ButtonGroup } = Button;
@@ -33,13 +33,13 @@ const options = [
 ];
 
 const Header = () => (
-  <header>
+  <header style={{padding:"10px"}}>
     <Space direction="horizontal">
       <Segmented
         options={[
           {
             value: "List",
-            icon: <BarsOutlined />,
+            icon: <FilePdfOutlined />,
           },
           {
             value: "Kanban",
