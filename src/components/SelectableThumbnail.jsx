@@ -4,8 +4,7 @@ import { useState, memo } from "react";
 import { Button, Flex, Tag } from "antd";
 
 const SelectableThumbnail = memo(({ index, isSelected, onClick }) => {
-
-  console.log("page re-rerendered ", index + 1);
+  //   todo : OnLoad show page number or loader
   return (
     <Flex vertical={true}>
       <Thumbnail
@@ -22,7 +21,7 @@ const SelectableThumbnail = memo(({ index, isSelected, onClick }) => {
             <strong>{index + 1}</strong>
           </Button>
         ) : (
-          <strong>{index + 1}</strong>
+          <Button>{index + 1}</Button>
         )}
       </Flex>
     </Flex>

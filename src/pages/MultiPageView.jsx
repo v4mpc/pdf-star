@@ -18,10 +18,6 @@ const options = {
   standardFontDataUrl: "/standard_fonts/",
 };
 
-const resizeObserverOptions = {};
-
-const maxWidth = 800;
-
 const MemoSelectableThumbnail = memo(({ index, selectedIndex, onClick }) => {
   return (
     <SelectableThumbnail
@@ -35,8 +31,6 @@ const MemoSelectableThumbnail = memo(({ index, selectedIndex, onClick }) => {
 const MultiPageView = () => {
   const [file, setFile] = useState(pdfFile);
   const [numPages, setNumPages] = useState();
-  const [containerRef, setContainerRef] = useState(null);
-  const [containerWidth, setContainerWidth] = useState();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
@@ -44,8 +38,7 @@ const MultiPageView = () => {
   }
 
   const handleItemClicked = useCallback(({ pageIndex }) => {
-    console.log(pageIndex);
-    setSelectedIndex(pageIndex);
+    setSelectedIndex((curr) => (curr === pageIndex ? null : pageIndex));
   }, []);
 
   const pages = useMemo(
@@ -58,7 +51,7 @@ const MultiPageView = () => {
           key={index}
         />
       )),
-    [numPages, handleItemClicked,selectedIndex],
+    [numPages, handleItemClicked, selectedIndex],
   );
 
   return (
