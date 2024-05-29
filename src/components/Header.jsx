@@ -1,11 +1,14 @@
 import { Flex, Segmented, Dropdown, Space, Select, Button } from "antd";
 
 import {
-    AppstoreOutlined,
-    BarsOutlined,
-    DownOutlined, FilePdfOutlined,
-    MinusOutlined,
-    PlusOutlined,
+  AppstoreOutlined,
+  BarsOutlined,
+  DeleteOutlined,
+  DownOutlined,
+  FileAddOutlined,
+  FilePdfOutlined,
+  MinusOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 
 const { Group: ButtonGroup } = Button;
@@ -33,34 +36,58 @@ const options = [
 ];
 
 const Header = () => (
-  <header style={{padding:"10px"}}>
-    <Space direction="horizontal">
-      <Segmented
-        options={[
-          {
-            value: "List",
-            icon: <FilePdfOutlined />,
-          },
-          {
-            value: "Kanban",
-            icon: <AppstoreOutlined />,
-          },
-        ]}
-      />
+  <header
+    style={{
 
-      <Select
-        defaultValue="50"
-        style={{
-          width: 100,
-        }}
-        options={options}
-      />
+      position: "sticky",
+      zIndex: "1000",
+      top: 0,
+    }}
+  >
+    <Flex
+      style={{
+        backgroundColor: "grey",
+          padding:"4px"
+      }}
+    >
+      <Space direction="horizontal">
+        <Segmented
+          options={[
+            {
+              value: "List",
+              icon: <FilePdfOutlined />,
+            },
+            {
+              value: "Kanban",
+              icon: <AppstoreOutlined />,
+            },
+          ]}
+        />
 
-      <ButtonGroup>
-        <Button type="primary" icon={<MinusOutlined />}></Button>
-        <Button type="primary" icon={<PlusOutlined />}></Button>
-      </ButtonGroup>
-    </Space>
+        <Select
+          defaultValue="50"
+          style={{
+            width: 100,
+          }}
+          options={options}
+        />
+
+        <ButtonGroup>
+          <Button type="primary" icon={<MinusOutlined />}></Button>
+          <Button type="primary" icon={<PlusOutlined />}></Button>
+        </ButtonGroup>
+      </Space>
+    </Flex>
+    <Flex justify="center" style={{ backgroundColor: "white", padding:"4px" }}>
+      <Space>
+        <Button type="text" icon={<FileAddOutlined />}>
+          Append File
+        </Button>
+        <Button type="text" danger={true} icon={<DeleteOutlined />}>
+          Delete
+        </Button>
+      </Space>
+    </Flex>
   </header>
 );
 export default Header;
