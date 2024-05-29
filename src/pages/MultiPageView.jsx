@@ -1,12 +1,12 @@
 import { useState, memo, useCallback, useMemo } from "react";
-import { pdfjs, Document, Page, Thumbnail } from "react-pdf";
-import pdfFile from "./samples/book.pdf";
-// import pdfFile from "./samples/A6.pdf";
+import { pdfjs, Document } from "react-pdf";
+// import pdfFile from "./samples/book.pdf";
+import pdfFile from "./samples/A6.pdf";
 import styles from "./MultiPageView.module.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
-import selectableThumbnail from "../components/SelectableThumbnail.jsx";
 import SelectableThumbnail from "../components/SelectableThumbnail.jsx";
+import { useApp } from "../AppContext.jsx";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdf.worker.min.js",
@@ -29,16 +29,20 @@ const MemoSelectableThumbnail = memo(({ index, selectedIndex, onClick }) => {
 });
 
 const MultiPageView = () => {
-  const [file, setFile] = useState(pdfFile);
-  const [numPages, setNumPages] = useState();
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  const {
+    file,
+    numPages,
+    handleSetNumPages,
+    selectedIndex,
+    handleSetSelectedIndex,
+  } = useApp();
 
   function onDocumentLoadSuccess({ numPages: nextNumPages }) {
-    setNumPages(nextNumPages);
+    handleSetNumPages(nextNumPages);
   }
 
   const handleItemClicked = useCallback(({ pageIndex }) => {
-    setSelectedIndex((curr) => (curr === pageIndex ? null : pageIndex));
+    handleSetSelectedIndex(pageIndex);
   }, []);
 
   const pages = useMemo(

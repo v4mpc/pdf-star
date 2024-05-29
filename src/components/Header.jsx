@@ -1,10 +1,8 @@
-import { Flex, Segmented, Dropdown, Space, Select, Button } from "antd";
+import { Flex, Segmented, Space, Select, Button } from "antd";
 
 import {
   AppstoreOutlined,
-  BarsOutlined,
   DeleteOutlined,
-  DownOutlined,
   FileAddOutlined,
   FilePdfOutlined,
   MinusOutlined,

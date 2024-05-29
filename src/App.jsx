@@ -4,13 +4,14 @@ import Home from "./pages/Home.jsx";
 import Header from "./components/Header.jsx";
 import SinglePageView from "./pages/SinglePageView.jsx";
 import MultiPageView from "./pages/MultiPageView.jsx";
+import { AppProvider } from "./AppContext.jsx";
 
 function App() {
   return (
-    <div >
+    <AppProvider>
       <Header />
-      <MultiPageView/>
-    </div>
+      <MultiPageView />
+    </AppProvider>
   );
 }
 
