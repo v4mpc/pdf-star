@@ -8,6 +8,7 @@ import {
   MinusOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
+import RemovePage from "./RemovePage.jsx";
 
 const { Group: ButtonGroup } = Button;
 
@@ -81,9 +82,7 @@ const Header = () => (
         <Button type="text" icon={<FileAddOutlined />}>
           Append File
         </Button>
-        <Button type="text" danger={true} icon={<DeleteOutlined />}>
-          Delete
-        </Button>
+        <RemovePage/>
       </Space>
     </Flex>
   </header>

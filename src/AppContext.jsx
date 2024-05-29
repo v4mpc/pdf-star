@@ -1,15 +1,20 @@
 import { createContext, useContext, useState } from "react";
-import pdfFile from "./pages/samples/A6.pdf";
-// import pdfFile from "./samples/book.pdf";
+// import pdfFile from "./pages/samples/A6.pdf";
+import pdfFile from "./pages/samples/book.pdf";
 
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const [file, setFile] = useState(pdfFile);
+  const [file, setFile] = useState(null);
+  const [modifiedFile, setModifiedFile] = useState(null);
   const [numPages, setNumPages] = useState();
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   function handleAddFile(file) {
+    setFile(file);
+  }
+
+  function handleAddModifiedFile(file) {
     setFile(file);
   }
 
@@ -26,6 +31,8 @@ const AppProvider = ({ children }) => {
       value={{
         file,
         handleAddFile,
+        modifiedFile,
+        handleAddModifiedFile,
         numPages,
         handleSetNumPages,
         selectedIndex,

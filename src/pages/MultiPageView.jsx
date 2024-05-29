@@ -1,4 +1,4 @@
-import { useState, memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import { pdfjs, Document } from "react-pdf";
 // import pdfFile from "./samples/book.pdf";
 import pdfFile from "./samples/A6.pdf";
