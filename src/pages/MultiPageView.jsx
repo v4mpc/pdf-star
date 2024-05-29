@@ -9,7 +9,7 @@ import SelectableThumbnail from "../components/SelectableThumbnail.jsx";
 import { useApp } from "../AppContext.jsx";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdf.worker.min.js",
+  "pdf.worker.min.mjs",
   import.meta.url,
 ).toString();
 
@@ -18,17 +18,7 @@ const options = {
   standardFontDataUrl: "/standard_fonts/",
 };
 
-const MemoSelectableThumbnail = memo(({ index, selectedIndex, onClick }) => {
-  return (
-    <SelectableThumbnail
-      index={index}
-      selectedIndex={selectedIndex}
-      onItemClicked={onClick}
-    />
-  );
-});
-
-const MultiPageView = () => {
+const MultiPageView = memo(() => {
   const {
     file,
     numPages,
@@ -64,6 +54,7 @@ const MultiPageView = () => {
         <Document
           className={styles.containerDocument}
           file={file}
+          loading=""
           onLoadSuccess={onDocumentLoadSuccess}
           options={options}
         >
@@ -72,6 +63,6 @@ const MultiPageView = () => {
       </div>
     </div>
   );
-};
+});
 
 export default MultiPageView;

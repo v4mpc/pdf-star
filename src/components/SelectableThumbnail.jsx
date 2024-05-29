@@ -5,6 +5,9 @@ import { Button, Flex, Tag } from "antd";
 
 const SelectableThumbnail = memo(({ index, isSelected, onClick }) => {
   //   todo : OnLoad show page number or loader
+
+
+    console.log('rerendering multi page',index);
   return (
     <Flex vertical={true}>
       <Thumbnail

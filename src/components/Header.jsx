@@ -1,5 +1,7 @@
 import { Flex, Segmented, Space, Select, Button } from "antd";
 
+import { memo, useCallback } from "react";
+
 import {
   AppstoreOutlined,
   DeleteOutlined,
@@ -9,6 +11,7 @@ import {
   PlusOutlined,
 } from "@ant-design/icons";
 import RemovePage from "./RemovePage.jsx";
+import { useApp } from "../AppContext.jsx";
 
 const { Group: ButtonGroup } = Button;
 
@@ -34,57 +37,65 @@ const options = [
   },
 ];
 
-const Header = () => (
-  <header
-    style={{
+const Header = memo(() => {
+  const { handleSetSelectedPageView } = useApp();
 
-      position: "sticky",
-      zIndex: "1000",
-      top: 0,
-    }}
-  >
-    <Flex
+
+  return (
+    <header
       style={{
-        backgroundColor: "grey",
-          padding:"4px"
+        position: "sticky",
+        zIndex: "1000",
+        top: 0,
       }}
     >
-      <Space direction="horizontal">
-        <Segmented
-          options={[
-            {
-              value: "List",
-              icon: <FilePdfOutlined />,
-            },
-            {
-              value: "Kanban",
-              icon: <AppstoreOutlined />,
-            },
-          ]}
-        />
+      <Flex
+        style={{
+          backgroundColor: "grey",
+          padding: "4px",
+        }}
+      >
+        <Space direction="horizontal">
+          <Segmented
+            options={[
+              {
+                value: "single",
+                icon: <FilePdfOutlined />,
+              },
+              {
+                value: "multi",
+                icon: <AppstoreOutlined />,
+              },
+            ]}
+            onChange={handleSetSelectedPageView}
+          />
 
-        <Select
-          defaultValue="50"
-          style={{
-            width: 100,
-          }}
-          options={options}
-        />
+          <Select
+            defaultValue="50"
+            style={{
+              width: 100,
+            }}
+            options={options}
+          />
 
-        <ButtonGroup>
-          <Button type="primary" icon={<MinusOutlined />}></Button>
-          <Button type="primary" icon={<PlusOutlined />}></Button>
-        </ButtonGroup>
-      </Space>
-    </Flex>
-    <Flex justify="center" style={{ backgroundColor: "white", padding:"4px" }}>
-      <Space>
-        <Button type="text" icon={<FileAddOutlined />}>
-          Append File
-        </Button>
-        <RemovePage/>
-      </Space>
-    </Flex>
-  </header>
-);
+          <ButtonGroup>
+            <Button type="primary" icon={<MinusOutlined />}></Button>
+            <Button type="primary" icon={<PlusOutlined />}></Button>
+          </ButtonGroup>
+        </Space>
+      </Flex>
+      <Flex
+        justify="center"
+        style={{ backgroundColor: "white", padding: "4px" }}
+      >
+        <Space>
+          <Button type="text" icon={<FileAddOutlined />}>
+            Append File
+          </Button>
+          <RemovePage />
+        </Space>
+      </Flex>
+    </header>
+  );
+});
 export default Header;

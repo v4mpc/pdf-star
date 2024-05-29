@@ -1,36 +1,26 @@
 import { Button, Flex, Layout, message, Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { useApp } from "../AppContext.jsx";
+import {readFileAsBlobAsync, readFileAsync} from "../util.jsx";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Dragger } = Upload;
 
 const Home = () => {
-  const {file, handleAddFile } = useApp();
+  const { file, handleAddFile } = useApp();
   const props = {
     name: "file",
     multiple: false,
     accept: "application/pdf",
-    onChange(info) {
-      const { status } = info.file;
-      if (status !== "uploading") {
-        console.log(info.file, info.fileList);
-      }
-      if (status === "done") {
-        message.success(`${info.file.name} file uploaded successfully.`);
-      } else if (status === "error") {
-        message.error(`${info.file.name} file upload failed.`);
+    async onChange({ file }) {
+      const { originFileObj } = file;
+      if (originFileObj) {
+        // const arrayBuffer = await readFileAsync(originFileObj);
+        // const uint8Array = new Uint8Array(arrayBuffer.slice(0));
+          const blob = await readFileAsBlobAsync(originFileObj);
+        handleAddFile(blob);
       }
     },
-    onDrop(e) {
-      console.log("Dropped files", e.dataTransfer.files);
-    },
-    beforeUpload: (file) => {
-      handleAddFile(file);
-      console.log(file);
-      return false;
-    },
-    file,
   };
 
   return (

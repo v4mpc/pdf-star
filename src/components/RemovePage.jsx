@@ -4,16 +4,23 @@ import { useCallback } from "react";
 
 import { PDFDocument } from "pdf-lib";
 import { useApp } from "../AppContext.jsx";
+import {
+  blobToArrayBuffer,
+  readFileAsync,
+  uint8ArrayToBlob,
+} from "../util.jsx";
 
 const RemovePage = () => {
-  const { file, selectedIndex, handleAddModifiedFile } = useApp();
+  const { file, handleAddFile, selectedIndex, handleAddModifiedFile } =
+    useApp();
 
   const handleRemovePage = useCallback(async () => {
     if (file) {
-      const pdfDoc = await PDFDocument.load(file.arrayBuffer());
+      const arrBff = await blobToArrayBuffer(file);
+      const pdfDoc = await PDFDocument.load(arrBff);
       pdfDoc.removePage(selectedIndex);
       const modifiedPdfBytes = await pdfDoc.save();
-      handleAddModifiedFile(modifiedPdfBytes);
+      handleAddFile(uint8ArrayToBlob(modifiedPdfBytes));
     }
   }, [file, selectedIndex]);
 

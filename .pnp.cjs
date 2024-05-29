@@ -41,7 +41,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.5"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:18.3.1"],\
-          ["react-pdf", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:8.0.2"],\
+          ["react-pdf", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:9.0.0"],\
           ["vite", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:5.2.11"]\
         ],\
         "linkType": "SOFT"\
@@ -3382,10 +3382,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:4bf2a6ba8d857686bbe5605c179269ddbd815fa69738f0a5a0730711d9b9da61138acc3991a7ecbc161607962be8fdf47a5f347685d2a1d8486bafd364b98e96#npm:1.3.0", {\
-        "packageLocation": "./.yarn/__virtual__/merge-refs-virtual-a91dc4108a/3/.yarn/berry/cache/merge-refs-npm-1.3.0-3b965c4c45-10c0.zip/node_modules/merge-refs/",\
+      ["virtual:5c9b25ab3987c2f599e73796409946925ccfe386156d908f19c51ac3813b2f6d26f3f6601ea510269142a11da8c63925ff7dee8ab8f310530cf513250d95a1ff#npm:1.3.0", {\
+        "packageLocation": "./.yarn/__virtual__/merge-refs-virtual-44b69122b0/3/.yarn/berry/cache/merge-refs-npm-1.3.0-3b965c4c45-10c0.zip/node_modules/merge-refs/",\
         "packageDependencies": [\
-          ["merge-refs", "virtual:4bf2a6ba8d857686bbe5605c179269ddbd815fa69738f0a5a0730711d9b9da61138acc3991a7ecbc161607962be8fdf47a5f347685d2a1d8486bafd364b98e96#npm:1.3.0"],\
+          ["merge-refs", "virtual:5c9b25ab3987c2f599e73796409946925ccfe386156d908f19c51ac3813b2f6d26f3f6601ea510269142a11da8c63925ff7dee8ab8f310530cf513250d95a1ff#npm:1.3.0"],\
           ["@types/react", "npm:18.3.3"]\
         ],\
         "packagePeers": [\
@@ -3847,11 +3847,11 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
-    ["path2d-polyfill", [\
-      ["npm:2.0.1", {\
-        "packageLocation": "../../.yarn/berry/cache/path2d-polyfill-npm-2.0.1-cca87dc638-10c0.zip/node_modules/path2d-polyfill/",\
+    ["path2d", [\
+      ["npm:0.2.0", {\
+        "packageLocation": "../../.yarn/berry/cache/path2d-npm-0.2.0-030f2ebad6-10c0.zip/node_modules/path2d/",\
         "packageDependencies": [\
-          ["path2d-polyfill", "npm:2.0.1"]\
+          ["path2d", "npm:0.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3888,19 +3888,19 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:3.2.5"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:18.3.1"],\
-          ["react-pdf", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:8.0.2"],\
+          ["react-pdf", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:9.0.0"],\
           ["vite", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:5.2.11"]\
         ],\
         "linkType": "SOFT"\
       }]\
     ]],\
     ["pdfjs-dist", [\
-      ["npm:3.11.174", {\
-        "packageLocation": "../../.yarn/berry/cache/pdfjs-dist-npm-3.11.174-67f2fee6d6-10c0.zip/node_modules/pdfjs-dist/",\
+      ["npm:4.3.136", {\
+        "packageLocation": "../../.yarn/berry/cache/pdfjs-dist-npm-4.3.136-35a0e70ced-10c0.zip/node_modules/pdfjs-dist/",\
         "packageDependencies": [\
-          ["pdfjs-dist", "npm:3.11.174"],\
+          ["pdfjs-dist", "npm:4.3.136"],\
           ["canvas", "npm:2.11.2"],\
-          ["path2d-polyfill", "npm:2.0.1"]\
+          ["path2d", "npm:0.2.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -5130,25 +5130,25 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["react-pdf", [\
-      ["npm:8.0.2", {\
-        "packageLocation": "../../.yarn/berry/cache/react-pdf-npm-8.0.2-258066ad0d-10c0.zip/node_modules/react-pdf/",\
+      ["npm:9.0.0", {\
+        "packageLocation": "../../.yarn/berry/cache/react-pdf-npm-9.0.0-63b907a3eb-10c0.zip/node_modules/react-pdf/",\
         "packageDependencies": [\
-          ["react-pdf", "npm:8.0.2"]\
+          ["react-pdf", "npm:9.0.0"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:8.0.2", {\
-        "packageLocation": "./.yarn/__virtual__/react-pdf-virtual-4bf2a6ba8d/3/.yarn/berry/cache/react-pdf-npm-8.0.2-258066ad0d-10c0.zip/node_modules/react-pdf/",\
+      ["virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:9.0.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-pdf-virtual-5c9b25ab39/3/.yarn/berry/cache/react-pdf-npm-9.0.0-63b907a3eb-10c0.zip/node_modules/react-pdf/",\
         "packageDependencies": [\
-          ["react-pdf", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:8.0.2"],\
+          ["react-pdf", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:9.0.0"],\
           ["@types/react", "npm:18.3.3"],\
           ["@types/react-dom", "npm:18.3.0"],\
           ["clsx", "npm:2.1.1"],\
           ["dequal", "npm:2.0.3"],\
           ["make-cancellable-promise", "npm:1.3.2"],\
           ["make-event-props", "npm:1.6.2"],\
-          ["merge-refs", "virtual:4bf2a6ba8d857686bbe5605c179269ddbd815fa69738f0a5a0730711d9b9da61138acc3991a7ecbc161607962be8fdf47a5f347685d2a1d8486bafd364b98e96#npm:1.3.0"],\
-          ["pdfjs-dist", "npm:3.11.174"],\
+          ["merge-refs", "virtual:5c9b25ab3987c2f599e73796409946925ccfe386156d908f19c51ac3813b2f6d26f3f6601ea510269142a11da8c63925ff7dee8ab8f310530cf513250d95a1ff#npm:1.3.0"],\
+          ["pdfjs-dist", "npm:4.3.136"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:99c3f4e140e1ac57711234bc6d8cdc32cb8c7188ff9b5a09d0332682155d2c59b3e4e1a4f4dc90dfc78766e08286aab00fefbac6b41992bd61056132055ab467#npm:18.3.1"],\
           ["tiny-invariant", "npm:1.3.3"],\

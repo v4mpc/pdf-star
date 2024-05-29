@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 // import pdfFile from "./pages/samples/A6.pdf";
 import pdfFile from "./pages/samples/book.pdf";
 
@@ -7,15 +7,16 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [file, setFile] = useState(null);
   const [modifiedFile, setModifiedFile] = useState(null);
-  const [numPages, setNumPages] = useState();
+  const [numPages, setNumPages] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [selectedPageView, setSelectedPageView] = useState(null);
 
   function handleAddFile(file) {
     setFile(file);
   }
 
   function handleAddModifiedFile(file) {
-    setFile(file);
+    setModifiedFile(file);
   }
 
   function handleSetNumPages(numPages) {
@@ -25,6 +26,10 @@ const AppProvider = ({ children }) => {
   function handleSetSelectedIndex(pageIndex) {
     setSelectedIndex((curr) => (curr === pageIndex ? null : pageIndex));
   }
+
+  const handleSetSelectedPageView = useCallback((pageViewValue) => {
+    setSelectedPageView(pageViewValue);
+  }, []);
 
   return (
     <AppContext.Provider
@@ -37,6 +42,8 @@ const AppProvider = ({ children }) => {
         handleSetNumPages,
         selectedIndex,
         handleSetSelectedIndex,
+        selectedPageView,
+        handleSetSelectedPageView,
       }}
     >
       {children}
