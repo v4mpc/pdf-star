@@ -7,7 +7,7 @@ import { useApp } from "./AppContext.jsx";
 import { useState, memo, useCallback } from "react";
 
 function App() {
-  const { file, modifiedFile, selectedPageView } = useApp();
+  const { file, selectedPageView } = useApp();
   const render = useCallback(() => {
     switch (selectedPageView) {
       case "single":
@@ -15,14 +15,14 @@ function App() {
       case "multi":
         return <MultiPageView file={file} />;
       default:
-        return <Home/>;
+        return <p>error</p>;
     }
   }, [selectedPageView, file]);
 
   return (
     <>
       <Header />
-      {render()}
+      {file === null ? <Home /> : render()}
     </>
   );
 }
