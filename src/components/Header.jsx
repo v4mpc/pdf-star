@@ -9,6 +9,7 @@ import {
   FilePdfOutlined,
   MinusOutlined,
   PlusOutlined,
+  SignatureOutlined,
 } from "@ant-design/icons";
 import RemovePage from "./RemovePage.jsx";
 import { useApp } from "../AppContext.jsx";
@@ -43,7 +44,13 @@ const options = [
 ];
 
 const Header = memo(() => {
-  const { file, handleSetSelectedPageView, scale, handleSetScale } = useApp();
+  const {
+    file,
+    handleSetSelectedPageView,
+    scale,
+    handleSetScale,
+    selectedPageView,
+  } = useApp();
 
   const increaseScale = () => {
     const newScale = scale + SCALE_STEP;
@@ -113,10 +120,20 @@ const Header = memo(() => {
         style={{ backgroundColor: "white", padding: "4px" }}
       >
         <Space>
-          <Button type="text" icon={<FileAddOutlined />}>
-            Append File
-          </Button>
-          <RemovePage />
+          {selectedPageView === "multi" && (
+            <>
+              <Button type="text" icon={<FileAddOutlined />}>
+                Append File
+              </Button>
+              <RemovePage />
+            </>
+          )}
+
+          {selectedPageView === "single" && (
+            <Button type="text" icon={<SignatureOutlined />}>
+              Sign
+            </Button>
+          )}
         </Space>
       </Flex>
     </header>

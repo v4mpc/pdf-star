@@ -10,7 +10,7 @@ const AppProvider = ({ children }) => {
   const [numPages, setNumPages] = useState(null);
   const [scale, setScale] = useState(1);
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [selectedPageView, setSelectedPageView] = useState(null);
+  const [selectedPageView, setSelectedPageView] = useState("single");
 
   function handleAddFile(file) {
     setFile(file);
