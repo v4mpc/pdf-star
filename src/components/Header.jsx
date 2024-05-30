@@ -12,34 +12,48 @@ import {
 } from "@ant-design/icons";
 import RemovePage from "./RemovePage.jsx";
 import { useApp } from "../AppContext.jsx";
+import { toPercentage } from "../util.jsx";
+
+const MIN_SCALE_VALUE = 0.25;
+const MAX_SCALE_VALUE = 1;
+const SCALE_STEP = 0.1;
 
 const { Group: ButtonGroup } = Button;
 
 const options = [
   {
-    value: "25",
+    value: 0.25,
     label: "25%",
   },
 
   {
-    value: "50",
+    value: 0.5,
     label: "50%",
   },
 
   {
-    value: "75",
+    value: 0.75,
     label: "75%",
   },
 
   {
-    value: "100",
+    value: 1,
     label: "100%",
   },
 ];
 
 const Header = memo(() => {
-  const { handleSetSelectedPageView } = useApp();
+  const { handleSetSelectedPageView, scale, handleSetScale } = useApp();
 
+  const increaseScale = () => {
+    const newScale = scale + SCALE_STEP;
+    handleSetScale(Math.min(MAX_SCALE_VALUE, newScale));
+  };
+
+  const decreaseScale = () => {
+    const newScale = scale - SCALE_STEP;
+    handleSetScale(Math.max(MIN_SCALE_VALUE, newScale));
+  };
 
   return (
     <header
@@ -71,16 +85,25 @@ const Header = memo(() => {
           />
 
           <Select
-            defaultValue="50"
+            value={toPercentage(scale)}
             style={{
               width: 100,
             }}
             options={options}
+            onChange={(value) => handleSetScale(value)}
           />
 
           <ButtonGroup>
-            <Button type="primary" icon={<MinusOutlined />}></Button>
-            <Button type="primary" icon={<PlusOutlined />}></Button>
+            <Button
+              type="primary"
+              onClick={decreaseScale}
+              icon={<MinusOutlined />}
+            ></Button>
+            <Button
+              type="primary"
+              onClick={increaseScale}
+              icon={<PlusOutlined />}
+            ></Button>
           </ButtonGroup>
         </Space>
       </Flex>

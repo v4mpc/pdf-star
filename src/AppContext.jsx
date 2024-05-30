@@ -8,6 +8,7 @@ const AppProvider = ({ children }) => {
   const [file, setFile] = useState(null);
   const [modifiedFile, setModifiedFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
+  const [scale, setScale] = useState(1);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedPageView, setSelectedPageView] = useState(null);
 
@@ -21,6 +22,10 @@ const AppProvider = ({ children }) => {
 
   function handleSetNumPages(numPages) {
     setNumPages(numPages);
+  }
+
+  function handleSetScale(scale) {
+    setScale(scale);
   }
 
   function handleSetSelectedIndex(pageIndex) {
@@ -44,6 +49,8 @@ const AppProvider = ({ children }) => {
         handleSetSelectedIndex,
         selectedPageView,
         handleSetSelectedPageView,
+        scale,
+        handleSetScale,
       }}
     >
       {children}

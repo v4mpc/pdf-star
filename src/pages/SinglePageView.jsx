@@ -8,8 +8,7 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 import { useApp } from "../AppContext.jsx";
 import { readFileAsync } from "../util.jsx";
 import { Spin } from "antd";
-import { LoadingOutlined } from '@ant-design/icons';
-
+import { LoadingOutlined } from "@ant-design/icons";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdf.worker.min.mjs",
@@ -28,8 +27,13 @@ const maxWidth = 800;
 const SinglePageView = memo(({ file }) => {
   const [containerWidth, setContainerWidth] = useState();
 
-  const { numPages, handleSetNumPages, selectedIndex, handleSetSelectedIndex } =
-    useApp();
+  const {
+    numPages,
+    handleSetNumPages,
+    selectedIndex,
+    handleSetSelectedIndex,
+    scale,
+  } = useApp();
 
   function onDocumentLoadSuccess({ numPages }) {
     handleSetNumPages(numPages);
@@ -51,6 +55,7 @@ const SinglePageView = memo(({ file }) => {
               className={styles.page}
               key={`page_${index + 1}`}
               pageNumber={index + 1}
+              scale={scale}
               width={
                 containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth
               }
