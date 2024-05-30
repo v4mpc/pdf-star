@@ -4,16 +4,17 @@ import Header from "./components/Header.jsx";
 import SinglePageView from "./pages/SinglePageView.jsx";
 import MultiPageView from "./pages/MultiPageView.jsx";
 import { useApp } from "./AppContext.jsx";
-import { useState, memo, useCallback } from "react";
+import { useState, memo, useMemo, useCallback } from "react";
 
 function App() {
   const { file, selectedPageView } = useApp();
+
   const render = useCallback(() => {
     switch (selectedPageView) {
       case "single":
-        return <SinglePageView file={file} />;
+        return <SinglePageView file={file} key="1" />;
       case "multi":
-        return <MultiPageView file={file} />;
+        return <MultiPageView key="2" />;
       default:
         return <p>error</p>;
     }

@@ -3,6 +3,8 @@ import { InboxOutlined } from "@ant-design/icons";
 import { useApp } from "../AppContext.jsx";
 import { readFileAsBlobAsync, readFileAsync } from "../util.jsx";
 
+import Draggable from "react-draggable";
+
 const { Header, Footer, Sider, Content } = Layout;
 const { Dragger } = Upload;
 

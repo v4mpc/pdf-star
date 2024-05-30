@@ -19,17 +19,15 @@ const options = {
 };
 
 const MultiPageView = memo(() => {
-  const {
-    file,
-    numPages,
-    handleSetNumPages,
-    selectedIndex,
-    handleSetSelectedIndex,
-  } = useApp();
+  const { file,numPages, handleSetNumPages, selectedIndex, handleSetSelectedIndex } =
+    useApp();
 
-  function onDocumentLoadSuccess({ numPages: nextNumPages }) {
-    handleSetNumPages(nextNumPages);
+
+  function onDocumentLoadSuccess({ numPages }) {
+    handleSetNumPages(numPages);
   }
+
+  console.log("rerendering mutlipage view");
 
   const handleItemClicked = useCallback(({ pageIndex }) => {
     handleSetSelectedIndex(pageIndex);

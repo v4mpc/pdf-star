@@ -43,7 +43,7 @@ const options = [
 ];
 
 const Header = memo(() => {
-  const { handleSetSelectedPageView, scale, handleSetScale } = useApp();
+  const { file, handleSetSelectedPageView, scale, handleSetScale } = useApp();
 
   const increaseScale = () => {
     const newScale = scale + SCALE_STEP;
@@ -71,6 +71,7 @@ const Header = memo(() => {
       >
         <Space direction="horizontal">
           <Segmented
+            disabled={file === null}
             options={[
               {
                 value: "single",
