@@ -1,20 +1,21 @@
-import { Flex, Segmented, Space, Select, Button, Upload } from "antd";
+import { Flex, Segmented, Space, Select, Button } from "antd";
 
 import { memo, useCallback } from "react";
 
 import {
   AppstoreOutlined,
   DeleteOutlined,
-  FileAddOutlined,
   FilePdfOutlined,
   MinusOutlined,
   PlusOutlined,
+  SaveOutlined,
   SignatureOutlined,
 } from "@ant-design/icons";
 import RemovePage from "./RemovePage.jsx";
 import { useApp } from "../AppContext.jsx";
-import { toPercentage } from "../util.jsx";
+import { blobToArrayBuffer, downloadPdf, toPercentage } from "../util.jsx";
 import AppendFile from "./AppendFile.jsx";
+import ActionMenu from "./ActionMenu.jsx";
 
 const MIN_SCALE_VALUE = 0.25;
 const MAX_SCALE_VALUE = 1;
@@ -47,6 +48,7 @@ const options = [
 const Header = memo(() => {
   const {
     file,
+    handleAddFile,
     handleSetSelectedPageView,
     scale,
     handleSetScale,
@@ -63,6 +65,14 @@ const Header = memo(() => {
     handleSetScale(Math.max(MIN_SCALE_VALUE, newScale));
   };
 
+  const handleSave = async () => {
+    downloadPdf(file);
+  };
+
+  const handleRemove = () => {
+    handleAddFile(null);
+  };
+
   return (
     <header
       style={{
@@ -72,6 +82,7 @@ const Header = memo(() => {
       }}
     >
       <Flex
+        justify="space-between"
         style={{
           backgroundColor: "grey",
           padding: "4px",
@@ -115,26 +126,29 @@ const Header = memo(() => {
             ></Button>
           </ButtonGroup>
         </Space>
-      </Flex>
-      <Flex
-        justify="center"
-        style={{ backgroundColor: "white", padding: "4px" }}
-      >
-        <Space>
-          {selectedPageView === "multi" && (
-            <>
-              <AppendFile />
-              <RemovePage />
-            </>
-          )}
 
-          {selectedPageView === "single" && (
-            <Button type="text" icon={<SignatureOutlined />}>
-              Sign
-            </Button>
-          )}
+        <Space direction="horizontal">
+          <Button
+              disabled={file===null}
+            type="primary"
+            onClick={handleSave}
+            icon={<SaveOutlined />}
+          >
+            Save
+          </Button>
+
+          <Button
+              disabled={file===null}
+            type="primary"
+            danger={true}
+            onClick={handleRemove}
+            icon={<DeleteOutlined />}
+          >
+            Remove
+          </Button>
         </Space>
       </Flex>
+      <ActionMenu />
     </header>
   );
 });

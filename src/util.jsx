@@ -40,6 +40,18 @@ const uint8ArrayToBlob = (uint8Array, mimeType = "application/pdf") => {
   return new Blob([uint8Array], { type: mimeType });
 };
 
+const downloadPdf = (bytes) => {
+  const blob = new Blob([bytes], { type: "application/pdf" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "untitled.pdf";
+  document.body.appendChild(a);
+  a.click();
+  URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+};
+
 const toPercentage = (value) => `${Math.round(value * 100)}%`;
 
 export {
@@ -49,4 +61,5 @@ export {
   arrayBufferToUint8Array,
   uint8ArrayToBlob,
   toPercentage,
+  downloadPdf,
 };
