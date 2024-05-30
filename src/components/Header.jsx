@@ -1,4 +1,4 @@
-import { Flex, Segmented, Space, Select, Button } from "antd";
+import { Flex, Segmented, Space, Select, Button, Upload } from "antd";
 
 import { memo, useCallback } from "react";
 
@@ -14,6 +14,7 @@ import {
 import RemovePage from "./RemovePage.jsx";
 import { useApp } from "../AppContext.jsx";
 import { toPercentage } from "../util.jsx";
+import AppendFile from "./AppendFile.jsx";
 
 const MIN_SCALE_VALUE = 0.25;
 const MAX_SCALE_VALUE = 1;
@@ -122,9 +123,7 @@ const Header = memo(() => {
         <Space>
           {selectedPageView === "multi" && (
             <>
-              <Button type="text" icon={<FileAddOutlined />}>
-                Append File
-              </Button>
+              <AppendFile />
               <RemovePage />
             </>
           )}
