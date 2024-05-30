@@ -1,7 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
 import { pdfjs, Document } from "react-pdf";
-// import pdfFile from "./samples/book.pdf";
-import pdfFile from "./samples/A6.pdf";
 import styles from "./MultiPageView.module.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";

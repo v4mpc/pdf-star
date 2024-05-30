@@ -1,14 +1,9 @@
-import { useState, memo, useMemo } from "react";
+import { useState, memo} from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import pdfFile from "./samples/book.pdf";
-// import pdfFile from "./samples/A6.pdf";
 import styles from "./SinglePageView.module.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import { useApp } from "../AppContext.jsx";
-import { readFileAsync } from "../util.jsx";
-import { Spin } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdf.worker.min.mjs",

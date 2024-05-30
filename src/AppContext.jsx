@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useState } from "react";
-// import pdfFile from "./pages/samples/A6.pdf";
-import pdfFile from "./pages/samples/book.pdf";
+
 
 const AppContext = createContext();
 
