@@ -15,18 +15,16 @@ const options = {
   standardFontDataUrl: "/standard_fonts/",
 };
 
-const resizeObserverOptions = {};
+
 
 const maxWidth = 800;
 
 const SinglePageView = memo(({ file }) => {
-  const [containerWidth, setContainerWidth] = useState();
+  const [containerWidth] = useState();
 
   const {
     numPages,
     handleSetNumPages,
-    selectedIndex,
-    handleSetSelectedIndex,
     scale,
   } = useApp();
 

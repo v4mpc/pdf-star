@@ -1,16 +1,12 @@
 import AppendFile from "./AppendFile.jsx";
 import RemovePage from "./RemovePage.jsx";
 import { SignatureOutlined } from "@ant-design/icons";
-import { Flex, Segmented, Space, Select, Button } from "antd";
+import { Flex, Space, Button } from "antd";
 import { Tooltip } from "antd";
 import {useApp} from "../AppContext.jsx";
 
 const ActionMenu = () => {
     const {
-        file,
-        handleSetSelectedPageView,
-        scale,
-        handleSetScale,
         selectedPageView,
     } = useApp();
   return (

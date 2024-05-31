@@ -4,7 +4,7 @@ import Header from "./components/Header.jsx";
 import SinglePageView from "./pages/SinglePageView.jsx";
 import MultiPageView from "./pages/MultiPageView.jsx";
 import { useApp } from "./AppContext.jsx";
-import { useState, memo, useMemo, useCallback } from "react";
+import { useCallback } from "react";
 
 function App() {
   const { file, selectedPageView } = useApp();

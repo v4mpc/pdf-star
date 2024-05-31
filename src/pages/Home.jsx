@@ -1,15 +1,11 @@
-import { Button, Flex, Layout, message, Upload } from "antd";
+import { Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { useApp } from "../AppContext.jsx";
-import { readFileAsBlobAsync, readFileAsync } from "../util.jsx";
-
-import Draggable from "react-draggable";
-
-const { Header, Footer, Sider, Content } = Layout;
+import { readFileAsBlobAsync} from "../util.jsx";
 const { Dragger } = Upload;
 
 const Home = () => {
-  const { file, handleAddFile, handleSetSelectedPageView } = useApp();
+  const {  handleAddFile, handleSetSelectedPageView } = useApp();
   const props = {
     name: "file",
     multiple: false,

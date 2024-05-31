@@ -1,6 +1,6 @@
 import { Flex, Segmented, Space, Select, Button } from "antd";
 
-import { memo, useCallback } from "react";
+import { memo} from "react";
 
 import {
   AppstoreOutlined,
@@ -9,12 +9,10 @@ import {
   MinusOutlined,
   PlusOutlined,
   SaveOutlined,
-  SignatureOutlined,
+
 } from "@ant-design/icons";
-import RemovePage from "./RemovePage.jsx";
 import { useApp } from "../AppContext.jsx";
-import { blobToArrayBuffer, downloadPdf, toPercentage } from "../util.jsx";
-import AppendFile from "./AppendFile.jsx";
+import {  downloadPdf, toPercentage } from "../util.jsx";
 import ActionMenu from "./ActionMenu.jsx";
 
 const MIN_SCALE_VALUE = 0.25;
@@ -52,7 +50,6 @@ const Header = memo(() => {
     handleSetSelectedPageView,
     scale,
     handleSetScale,
-    selectedPageView,
   } = useApp();
 
   const increaseScale = () => {

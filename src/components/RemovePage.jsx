@@ -6,12 +6,12 @@ import { PDFDocument } from "pdf-lib";
 import { useApp } from "../AppContext.jsx";
 import {
   blobToArrayBuffer,
-  readFileAsync,
+
   uint8ArrayToBlob,
 } from "../util.jsx";
 
 const RemovePage = () => {
-  const { file, handleAddFile, selectedIndex, handleAddModifiedFile } =
+  const { file, handleAddFile, selectedIndex } =
     useApp();
 
   const handleRemovePage = useCallback(async () => {

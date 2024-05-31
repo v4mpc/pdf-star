@@ -1,6 +1,6 @@
 import { FileAddOutlined } from "@ant-design/icons";
 
-import { Flex, Segmented, Space, Select, Button, Upload } from "antd";
+import { Button, Upload } from "antd";
 import {
   blobToArrayBuffer,
   readFileAsBlobAsync,

@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "main": "electron/main.js",
   "scripts": {
+    "dev-only": "vite",
     "dev": "concurrently \"vite\" \"cross-env NODE_ENV=dev yarn electron:dev\"",
     "build": "vite build && electron-builder",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
