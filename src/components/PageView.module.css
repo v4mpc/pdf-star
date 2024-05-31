@@ -1,4 +1,11 @@
 
+:root {
+    --border-color: #4096ff;
+    --border-radius: 2px;
+    --border-style: dashed;
+}
+
+
 .container {
     display: flex;
     flex-direction: column;
@@ -6,6 +13,24 @@
     margin: 10px 0;
     padding: 10px;
 }
+
+.handleBorderBottom {
+    border-bottom: var(--border-radius) var(--border-style) var(--border-color);
+}
+
+.handleBorderTop {
+    border-top: var(--border-radius) var(--border-style) var(--border-color);
+}
+
+.handleBorderLeft {
+    border-left:var(--border-radius) var(--border-style) var(--border-color);
+}
+
+
+.handleBorderRight {
+    border-right:var(--border-radius) var(--border-style) var(--border-color);
+}
+
 
 
 .containerDocument {

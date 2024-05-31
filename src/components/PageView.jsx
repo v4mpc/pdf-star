@@ -34,9 +34,17 @@ const PageView = ({ scale, index }) => {
       >
         {signature !== null && (
           <Rnd
+              lockAspectRatio={true}
+            resizeHandleClasses={{
+              bottom: styles.handleBorderBottom,
+              top: styles.handleBorderTop,
+              right: styles.handleBorderRight,
+              left: styles.handleBorderLeft,
+            }}
             key={index}
             style={{
               zIndex: 999,
+              backgroundColor: "blue",
             }}
             bounds="parent"
             onDragStop={handleDragStop}
@@ -47,12 +55,12 @@ const PageView = ({ scale, index }) => {
               width: signature.width,
             }}
           >
-            <img draggable="false"
+            <img
+              draggable="false"
               style={{
                 width: "100%",
                 height: "auto",
                 display: "block",
-
               }}
               src={URL.createObjectURL(signature.blob)}
               alt="signature"
