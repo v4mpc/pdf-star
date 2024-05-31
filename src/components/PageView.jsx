@@ -34,12 +34,16 @@ const PageView = ({ scale, index }) => {
       >
         {signature !== null && (
           <Rnd
-              lockAspectRatio={true}
+            lockAspectRatio={true}
             resizeHandleClasses={{
               bottom: styles.handleBorderBottom,
               top: styles.handleBorderTop,
               right: styles.handleBorderRight,
               left: styles.handleBorderLeft,
+              topLeft: styles.redCircle,
+              topRight: styles.redCircle,
+              bottomLeft: styles.redCircle,
+              bottomRight: styles.redCircle,
             }}
             key={index}
             style={{

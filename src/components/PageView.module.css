@@ -3,8 +3,15 @@
     --border-color: #4096ff;
     --border-radius: 2px;
     --border-style: dashed;
+    --dot-size:8px;
 }
 
+.redCircle {
+    width: var(--dot-size) !important; /* Adjust the size as needed */
+    height: var(--dot-size) !important; /* Adjust the size as needed */
+    background-color: var(--border-color);
+    border-radius: 50%; /* Makes the element circular */
+}
 
 .container {
     display: flex;
@@ -23,14 +30,13 @@
 }
 
 .handleBorderLeft {
-    border-left:var(--border-radius) var(--border-style) var(--border-color);
+    border-left: var(--border-radius) var(--border-style) var(--border-color);
 }
 
 
 .handleBorderRight {
-    border-right:var(--border-radius) var(--border-style) var(--border-color);
+    border-right: var(--border-radius) var(--border-style) var(--border-color);
 }
-
 
 
 .containerDocument {
