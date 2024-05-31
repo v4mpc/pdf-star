@@ -4480,6 +4480,7 @@ __metadata:
     react-dom: "npm:^18.2.0"
     react-draggable: "npm:^4.4.6"
     react-pdf: "npm:^9.0.0"
+    react-rnd: "npm:^10.4.11"
     vite: "npm:^5.2.0"
     wait-on: "npm:^7.2.0"
   languageName: unknown
@@ -5182,6 +5183,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"re-resizable@npm:6.9.17":
+  version: 6.9.17
+  resolution: "re-resizable@npm:6.9.17"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/a3f2483c8a45c1f6c8b3b13d7b5413f4beb5be1cc44653e73b84712c3ae7f4558f3da1d4682684a8bdcb889057314c528e99ad2b8942159d3111e7ded4484c34
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
@@ -5194,7 +5205,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-draggable@npm:^4.4.6":
+"react-draggable@npm:4.4.6, react-draggable@npm:^4.4.6":
   version: 4.4.6
   resolution: "react-draggable@npm:4.4.6"
   dependencies:
@@ -5241,6 +5252,20 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/c9e5606ee5a36acab0746914f2efa84459bf969e0f4d5e3a945da6d14f9882c57c45ea66f181ed16112b933321b963241e5c7f6b1cb0890322a24b4c8925a48b
+  languageName: node
+  linkType: hard
+
+"react-rnd@npm:^10.4.11":
+  version: 10.4.11
+  resolution: "react-rnd@npm:10.4.11"
+  dependencies:
+    re-resizable: "npm:6.9.17"
+    react-draggable: "npm:4.4.6"
+    tslib: "npm:2.6.2"
+  peerDependencies:
+    react: ">=16.3.0"
+    react-dom: ">=16.3.0"
+  checksum: 10c0/c0788d067a55388d9a6166f825b7912da1aa2100544bbdf46d602a75a989a48b0c8300d88f1f764ee7b848b39e45dec4debff7d5db5dde3d8e6e8572a5da5a65
   languageName: node
   linkType: hard
 
@@ -6053,17 +6078,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:2.6.2, tslib@npm:^2.1.0":
+  version: 2.6.2
+  resolution: "tslib@npm:2.6.2"
+  checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.11.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: 10c0/69ae09c49eea644bc5ebe1bca4fa4cc2c82b7b3e02f43b84bd891504edf66dbc6b2ec0eef31a957042de2269139e4acff911e6d186a258fb14069cd7f6febce2
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.1.0":
-  version: 2.6.2
-  resolution: "tslib@npm:2.6.2"
-  checksum: 10c0/e03a8a4271152c8b26604ed45535954c0a45296e32445b4b87f8a5abdb2421f40b59b4ca437c4346af0f28179780d604094eb64546bee2019d903d01c6c19bdb
   languageName: node
   linkType: hard
 

@@ -1,10 +1,10 @@
 import { createContext, useCallback, useContext, useState } from "react";
 
-
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [file, setFile] = useState(null);
+  const [signature, setSignature] = useState(null);
   const [modifiedFile, setModifiedFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [scale, setScale] = useState(1);
@@ -14,6 +14,10 @@ const AppProvider = ({ children }) => {
   function handleAddFile(file) {
     setFile(file);
   }
+
+  const handleAddSignature = (signature) => {
+    setSignature(signature);
+  };
 
   function handleAddModifiedFile(file) {
     setModifiedFile(file);
@@ -50,6 +54,8 @@ const AppProvider = ({ children }) => {
         handleSetSelectedPageView,
         scale,
         handleSetScale,
+        signature,
+        handleAddSignature,
       }}
     >
       {children}

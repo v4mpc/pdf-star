@@ -1,11 +1,15 @@
 import { Upload } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { useApp } from "../AppContext.jsx";
-import { readFileAsBlobAsync} from "../util.jsx";
+import { readFileAsBlobAsync } from "../util.jsx";
+import {useState} from "react";
+
 const { Dragger } = Upload;
 
 const Home = () => {
-  const {  handleAddFile, handleSetSelectedPageView } = useApp();
+  const [elements, setElements] = useState([]);
+
+  const { handleAddFile, handleSetSelectedPageView } = useApp();
   const props = {
     name: "file",
     multiple: false,
@@ -20,6 +24,8 @@ const Home = () => {
     },
   };
 
+
+
   return (
     <div
       style={{
@@ -29,10 +35,12 @@ const Home = () => {
         height: "100vh",
       }}
     >
-      <Dragger {...props}>
+      <Dragger {...props} >
         <p className="ant-upload-drag-icon">
           <InboxOutlined />
         </p>
+
+
         <p className="ant-upload-text">
           Click or drag PDF file to this area to open
         </p>

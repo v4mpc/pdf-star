@@ -1,14 +1,11 @@
 import AppendFile from "./AppendFile.jsx";
 import RemovePage from "./RemovePage.jsx";
-import { SignatureOutlined } from "@ant-design/icons";
-import { Flex, Space, Button } from "antd";
-import { Tooltip } from "antd";
-import {useApp} from "../AppContext.jsx";
+import { Flex, Space } from "antd";
+import { useApp } from "../AppContext.jsx";
+import Sign from "./Sign";
 
 const ActionMenu = () => {
-    const {
-        selectedPageView,
-    } = useApp();
+  const { selectedPageView } = useApp();
   return (
     <Flex justify="center" style={{ backgroundColor: "white", padding: "4px" }}>
       <Space>
@@ -19,14 +16,7 @@ const ActionMenu = () => {
           </>
         )}
 
-        {selectedPageView === "single" && (
-
-            <Tooltip title="coming soon">
-                <Button type="text" icon={<SignatureOutlined />}>
-                    Sign
-                </Button>
-            </Tooltip>
-        )}
+        {selectedPageView === "single" && <Sign />}
       </Space>
     </Flex>
   );

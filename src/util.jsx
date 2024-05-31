@@ -9,6 +9,41 @@ const readFileAsync = (file) => {
   });
 };
 
+
+function getImageBlobAndDimensions(file) {
+    return new Promise((resolve, reject) => {
+        if (!file) {
+            reject(new Error("No file provided"));
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            const blob = new Blob([reader.result], { type: file.type });
+            const blobUrl = URL.createObjectURL(blob);
+
+            const img = new Image();
+            img.onload = () => {
+                resolve({
+                    blob,
+                    dimensions: {
+                        width: img.width,
+                        height: img.height,
+                    },
+                });
+            };
+            img.onerror = reject;
+            img.src = blobUrl;
+        };
+
+        reader.onerror = reject;
+        reader.readAsArrayBuffer(file);
+    });
+}
+
+
+
 const readFileAsBlobAsync = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -62,4 +97,5 @@ export {
   uint8ArrayToBlob,
   toPercentage,
   downloadPdf,
+    getImageBlobAndDimensions
 };
