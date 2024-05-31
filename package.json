@@ -6,7 +6,7 @@
   "scripts": {
     "dev-only": "vite",
     "dev": "concurrently \"vite\" \"cross-env NODE_ENV=dev yarn electron:dev\"",
-    "build": "vite build && electron-builder",
+    "build": "vite build  --base=./ && electron-builder",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "electron:dev": "wait-on tcp:3000 && electron .",
