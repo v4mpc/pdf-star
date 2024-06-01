@@ -1,3 +1,5 @@
+import { PDFDocument } from "pdf-lib";
+
 const readFileAsync = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -9,40 +11,37 @@ const readFileAsync = (file) => {
   });
 };
 
-
 function getImageBlobAndDimensions(file) {
-    return new Promise((resolve, reject) => {
-        if (!file) {
-            reject(new Error("No file provided"));
-            return;
-        }
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      reject(new Error("No file provided"));
+      return;
+    }
 
-        const reader = new FileReader();
+    const reader = new FileReader();
 
-        reader.onload = () => {
-            const blob = new Blob([reader.result], { type: file.type });
-            const blobUrl = URL.createObjectURL(blob);
+    reader.onload = () => {
+      const blob = new Blob([reader.result], { type: file.type });
+      const blobUrl = URL.createObjectURL(blob);
 
-            const img = new Image();
-            img.onload = () => {
-                resolve({
-                    blob,
-                    dimensions: {
-                        width: img.width,
-                        height: img.height,
-                    },
-                });
-            };
-            img.onerror = reject;
-            img.src = blobUrl;
-        };
+      const img = new Image();
+      img.onload = () => {
+        resolve({
+          blob,
+          dimensions: {
+            width: img.width,
+            height: img.height,
+          },
+        });
+      };
+      img.onerror = reject;
+      img.src = blobUrl;
+    };
 
-        reader.onerror = reject;
-        reader.readAsArrayBuffer(file);
-    });
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
 }
-
-
 
 const readFileAsBlobAsync = (file) => {
   return new Promise((resolve, reject) => {
@@ -75,8 +74,45 @@ const uint8ArrayToBlob = (uint8Array, mimeType = "application/pdf") => {
   return new Blob([uint8Array], { type: mimeType });
 };
 
-const downloadPdf = (bytes) => {
-  const blob = new Blob([bytes], { type: "application/pdf" });
+function toNumber(value) {
+  const number = value.match(/\d+/);
+  return number ? parseInt(number[0], 10) : null;
+}
+
+const downloadPdf = async (pdfFile, signature, signatureMeta) => {
+  const arrBff = await blobToArrayBuffer(pdfFile);
+  const pdfDoc = await PDFDocument.load(arrBff);
+  const pngSignatureBytes = await blobToArrayBuffer(signature.blob);
+  const pngSignature = await pdfDoc.embedPng(pngSignatureBytes);
+
+  const page = pdfDoc.getPage(0);
+  console.log(page.getHeight());
+  console.log(page.getWidth());
+  // console.log(signatureMeta.current.height);
+  // console.log(signatureMeta.current.position.y+signatureMeta.current.height-page.getHeight())
+  page.drawImage(pngSignature, {
+    // x: signatureMeta.current.position.x,
+    // y:
+    //   page.getHeight() -
+    //   signatureMeta.current.height +
+    //   signatureMeta.current.position.y,
+    height: signatureMeta.current.height,
+    width: signatureMeta.current.width,
+    x: signatureMeta.current.position.x,
+    y:
+      page.getHeight() -
+      signatureMeta.current.height -
+      signatureMeta.current.position.y -
+      78,
+    // height: 94,
+    // width: 283,
+  });
+
+  const signedPdfBytes = await pdfDoc.save();
+
+  const blob = new Blob([uint8ArrayToBlob(signedPdfBytes)], {
+    type: "application/pdf",
+  });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -97,5 +133,6 @@ export {
   uint8ArrayToBlob,
   toPercentage,
   downloadPdf,
-    getImageBlobAndDimensions
+  getImageBlobAndDimensions,
+  toNumber,
 };

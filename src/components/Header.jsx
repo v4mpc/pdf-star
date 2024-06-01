@@ -1,6 +1,6 @@
 import { Flex, Segmented, Space, Select, Button } from "antd";
 
-import { memo} from "react";
+import { memo } from "react";
 
 import {
   AppstoreOutlined,
@@ -9,10 +9,9 @@ import {
   MinusOutlined,
   PlusOutlined,
   SaveOutlined,
-
 } from "@ant-design/icons";
 import { useApp } from "../AppContext.jsx";
-import {  downloadPdf, toPercentage } from "../util.jsx";
+import { downloadPdf, toPercentage } from "../util.jsx";
 import ActionMenu from "./ActionMenu.jsx";
 
 const MIN_SCALE_VALUE = 0.25;
@@ -50,6 +49,8 @@ const Header = memo(() => {
     handleSetSelectedPageView,
     scale,
     handleSetScale,
+    signature,
+    signatureMeta,
   } = useApp();
 
   const increaseScale = () => {
@@ -63,7 +64,7 @@ const Header = memo(() => {
   };
 
   const handleSave = async () => {
-    downloadPdf(file);
+    await downloadPdf(file, signature, signatureMeta);
   };
 
   const handleRemove = () => {
@@ -126,16 +127,16 @@ const Header = memo(() => {
 
         <Space direction="horizontal">
           <Button
-              disabled={file===null}
+            disabled={file === null}
             type="primary"
-            onClick={handleSave}
+            onClick={async () => handleSave()}
             icon={<SaveOutlined />}
           >
             Save
           </Button>
 
           <Button
-              disabled={file===null}
+            disabled={file === null}
             type="primary"
             danger={true}
             onClick={handleRemove}

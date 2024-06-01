@@ -1,6 +1,12 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useState,
+  useRef,
+} from "react";
 
-const AppContext = createContext();
+const AppContext = createContext(undefined);
 
 const AppProvider = ({ children }) => {
   const [file, setFile] = useState(null);
@@ -10,6 +16,7 @@ const AppProvider = ({ children }) => {
   const [scale, setScale] = useState(1);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedPageView, setSelectedPageView] = useState("single");
+  let signatureMeta = useRef(null);
 
   function handleAddFile(file) {
     setFile(file);
@@ -56,6 +63,7 @@ const AppProvider = ({ children }) => {
         handleSetScale,
         signature,
         handleAddSignature,
+        signatureMeta,
       }}
     >
       {children}
