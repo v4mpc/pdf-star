@@ -82,21 +82,14 @@ function toNumber(value) {
 const downloadPdf = async (pdfFile, signature, signatureMeta) => {
   const arrBff = await blobToArrayBuffer(pdfFile);
   const pdfDoc = await PDFDocument.load(arrBff);
-  const pngSignatureBytes = signatureMeta.current.blob;
+  const pngSignatureBytes = await blobToArrayBuffer(signature.blob);
   const pngSignature = await pdfDoc.embedPng(pngSignatureBytes);
 
   // TODO: Handle when no signature is add
-  const scaleFactor = 1;
   const page = pdfDoc.getPage(0);
-  // page.setSize(800,1132);
   page.drawImage(pngSignature, {
-    // x: signatureMeta.current.position.x,
-    // y:
-    //   page.getHeight() -
-    //   signatureMeta.current.height +
-    //   signatureMeta.current.position.y,
-    height: signatureMeta.current.height * scaleFactor,
-    width: signatureMeta.current.width * scaleFactor,
+    height: signatureMeta.current.height,
+    width: signatureMeta.current.width,
     x: signatureMeta.current.x,
     y:
       page.getHeight() - signatureMeta.current.height - signatureMeta.current.y,
