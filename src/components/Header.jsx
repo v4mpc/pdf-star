@@ -51,6 +51,7 @@ const Header = memo(() => {
     handleSetScale,
     signature,
     signatureMeta,
+
   } = useApp();
 
   const increaseScale = () => {

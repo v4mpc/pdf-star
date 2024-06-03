@@ -1,35 +1,79 @@
 import { Page } from "react-pdf";
 import styles from "./PageView.module.css";
-import { useState } from "react";
 
 import { Rnd } from "react-rnd";
 import { useApp } from "../AppContext";
-import { toNumber } from "../util";
+import { useState } from "react";
 
-const maxWidth = 800;
+// const maxWidth = 800;
 const PageView = ({ scale, index }) => {
   const { signature } = useApp();
   let { signatureMeta } = useApp();
+  const [width, setWidth] = useState(200);
+  const [height, setHeight] = useState(200);
+  const [x, setX] = useState(100);
+  const [y, setY] = useState(100);
 
   const handleOnDrag = (e, data) => {
     // console.log(data.x, data.y);
-    signatureMeta.current.position.x = data.lastX;
-    signatureMeta.current.position.y = data.lastY;
+    // signatureMeta.current.position.x = data.lastX;
+    // signatureMeta.current.position.y = data.lastY;
+    const newX = data.lastX;
+    const newY = data.lastY;
+    const newWidth = width;
+    const newHeight = height;
+
+    setWidth(newWidth);
+    setHeight(newHeight);
+    setX(newX);
+    setY(newY);
+
+    const img = document.querySelector("#myImage");
+    const canvas = document.createElement("canvas");
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, newWidth, newHeight);
+    canvas.toBlob(async (blob) => {
+      signatureMeta.current.blob = await blob.arrayBuffer();
+    });
   };
 
-  const handleResizeStop = (e, dir, ref, delta, position) => {
-    console.log("resize position", position);
-    console.log(
-      "width",
-      toNumber(ref.style.width),
-      "height",
-      toNumber(ref.style.height),
-    );
+  const handleResizeStop = async (e, direction, ref, delta, position) => {
     signatureMeta.current = {
-      height: toNumber(ref.style.height),
-      width: toNumber(ref.style.width),
-      position: { x: 0, y: 0 },
+      height: ref.offsetHeight,
+      width: ref.offsetWidth,
+      x: position.x,
+      y: position.y,
+      blob: null,
     };
+    const newWidth = ref.offsetWidth;
+    const newHeight = ref.offsetHeight;
+    const newX = position.x;
+    const newY = position.y;
+
+    setWidth(newWidth);
+    setHeight(newHeight);
+    setX(newX);
+    setY(newY);
+
+
+
+    const img = document.querySelector("#myImage");
+    const canvas = document.createElement("canvas");
+    canvas.width = ref.offsetWidth;
+    canvas.height = ref.offsetHeight;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      ref.offsetWidth,
+      ref.offsetHeight,
+    );
+    canvas.toBlob(async (blob) => {
+      signatureMeta.current.blob = await blob.arrayBuffer();
+    });
   };
 
   return (
@@ -37,8 +81,8 @@ const PageView = ({ scale, index }) => {
       className={styles.page}
       key={`page_${index + 1}`}
       pageNumber={index + 1}
-      scale={scale}
-      width={maxWidth}
+      scale={1}
+
     >
       {signature !== null && (
         <Rnd
@@ -56,24 +100,19 @@ const PageView = ({ scale, index }) => {
           key={index}
           style={{
             zIndex: 999,
-            backgroundColor: "blue",
+            // backgroundColor: "blue",
           }}
+          size={{ width, height }}
+          position={{ x, y }}
           bounds="parent"
           onResizeStop={handleResizeStop}
-          onDragStop={handleOnDrag}
-          default={{
-            x: 0,
-            y: 0,
-            height: signature.dimensions.height,
-            width: signature.dimensions.width,
-          }}
         >
           <img
+            id="myImage"
             draggable="false"
             style={{
               width: "100%",
-              height: "auto",
-              display: "block",
+              height: "100%",
             }}
             src={URL.createObjectURL(signature.blob)}
             alt="signature"

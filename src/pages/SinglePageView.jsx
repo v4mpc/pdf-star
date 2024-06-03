@@ -21,10 +21,10 @@ const maxWidth = 800;
 const SinglePageView = ({ file }) => {
   const [containerWidth] = useState();
 
-  const { numPages, handleSetNumPages, scale } = useApp();
+  const { numPages, handleSetNumPages, scale, pdfInfo } = useApp();
 
-  function onDocumentLoadSuccess({ numPages }) {
-    handleSetNumPages(numPages);
+  function onDocumentLoadSuccess(pdf) {
+    handleSetNumPages(pdf.numPages);
   }
 
   return (
@@ -34,7 +34,7 @@ const SinglePageView = ({ file }) => {
           className={styles.containerDocument}
           file={file}
           loading=""
-          scale={0.5}
+          scale={1}
           onLoadSuccess={onDocumentLoadSuccess}
           options={options}
         >
