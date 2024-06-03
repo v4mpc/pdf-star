@@ -82,18 +82,36 @@ function toNumber(value) {
 const downloadPdf = async (pdfFile, signature, signatureMeta) => {
   const arrBff = await blobToArrayBuffer(pdfFile);
   const pdfDoc = await PDFDocument.load(arrBff);
-  const pngSignatureBytes = await blobToArrayBuffer(signature.blob);
-  const pngSignature = await pdfDoc.embedPng(pngSignatureBytes);
+
+  // const pngSignatureBytes = await blobToArrayBuffer(
+  //   signature[item.signatureIndex].blob,
+  // );
+  // const pngSignature = await pdfDoc.embedPng(pngSignatureBytes);
+
+  let pngSignatureBytesPromises = [];
+  signature.forEach((item, index) => {
+    pngSignatureBytesPromises.push(blobToArrayBuffer(item.blob));
+  });
+
+  let pngSignaturesBytes = await Promise.all(pngSignatureBytesPromises);
+  let pngSignaturePromises = [];
+  pngSignaturesBytes.forEach((item, index) => {
+    pngSignaturePromises.push(pdfDoc.embedPng(item));
+  });
+  let pngSignatures = await Promise.all(pngSignaturePromises);
+
+  signatureMeta.current.forEach((item, index) => {
+    const page = pdfDoc.getPage(item.pageIndex);
+
+    page.drawImage(pngSignatures[item.signatureIndex], {
+      height: item.height,
+      width: item.width,
+      x: item.x,
+      y: page.getHeight() - item.height - item.y,
+    });
+  });
 
   // TODO: Handle when no signature is add
-  const page = pdfDoc.getPage(0);
-  page.drawImage(pngSignature, {
-    height: signatureMeta.current.height,
-    width: signatureMeta.current.width,
-    x: signatureMeta.current.x,
-    y:
-      page.getHeight() - signatureMeta.current.height - signatureMeta.current.y,
-  });
 
   const signedPdfBytes = await pdfDoc.save();
 

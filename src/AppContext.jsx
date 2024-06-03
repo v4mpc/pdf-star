@@ -10,13 +10,13 @@ const AppContext = createContext(undefined);
 
 const AppProvider = ({ children }) => {
   const [file, setFile] = useState(null);
-  const [signature, setSignature] = useState(null);
+  const [signature, setSignature] = useState([]);
   const [modifiedFile, setModifiedFile] = useState(null);
   const [numPages, setNumPages] = useState(null);
   const [scale, setScale] = useState(1);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedPageView, setSelectedPageView] = useState("single");
-  let signatureMeta = useRef(null);
+  let signatureMeta = useRef([]);
 
   function handleAddFile(file) {
     setFile(file);
