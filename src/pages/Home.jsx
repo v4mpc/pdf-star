@@ -7,8 +7,6 @@ import {useState} from "react";
 const { Dragger } = Upload;
 
 const Home = () => {
-  const [elements, setElements] = useState([]);
-
   const { handleAddFile, handleSetSelectedPageView } = useApp();
   const props = {
     name: "file",
@@ -17,6 +15,7 @@ const Home = () => {
     async onChange({ file }) {
       const { originFileObj } = file;
       if (originFileObj) {
+          console.log('sign');
         const blob = await readFileAsBlobAsync(originFileObj);
         handleAddFile(blob);
         handleSetSelectedPageView("single");

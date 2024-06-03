@@ -3,6 +3,8 @@ import styles from "./PageView.module.css";
 
 import { Rnd } from "react-rnd";
 import { useApp } from "../AppContext";
+import {Space,Button} from "antd";
+import {DeleteOutlined} from "@ant-design/icons";
 
 const PageView = ({ scale, index }) => {
   const { signature } = useApp();
@@ -60,48 +62,52 @@ const PageView = ({ scale, index }) => {
     >
       {signature.length > 0 &&
         signature.map((s, signatureIndex) => (
-          <Rnd
-            lockAspectRatio={true}
-            resizeHandleClasses={{
-              bottom: styles.handleBorderBottom,
-              top: styles.handleBorderTop,
-              right: styles.handleBorderRight,
-              left: styles.handleBorderLeft,
-              topLeft: styles.redCircle,
-              topRight: styles.redCircle,
-              bottomLeft: styles.redCircle,
-              bottomRight: styles.redCircle,
-            }}
-            key={signatureIndex}
-            style={{
-              zIndex: 999,
-            }}
-            bounds="parent"
-            onResizeStop={(e, direction, ref, delta, position) =>
-              handleResizeStop(
-                e,
-                direction,
-                ref,
-                delta,
-                position,
-                index,
-                signatureIndex,
-              )
-            }
-            onDragStop={(e, data) =>
-              handleOnDrag(e, data, index, signatureIndex)
-            }
-          >
-            <img
-              draggable="false"
-              style={{
-                width: "100%",
-                height: "100%",
-              }}
-              src={URL.createObjectURL(s.blob)}
-              alt="signature"
-            />
-          </Rnd>
+
+
+                <Rnd
+                    lockAspectRatio={true}
+                    resizeHandleClasses={{
+                        bottom: styles.handleBorderBottom,
+                        top: styles.handleBorderTop,
+                        right: styles.handleBorderRight,
+                        left: styles.handleBorderLeft,
+                        topLeft: styles.redCircle,
+                        topRight: styles.redCircle,
+                        bottomLeft: styles.redCircle,
+                        bottomRight: styles.redCircle,
+                    }}
+                    key={signatureIndex}
+                    style={{
+                        zIndex: 999,
+                    }}
+                    bounds="parent"
+                    onResizeStop={(e, direction, ref, delta, position) =>
+                        handleResizeStop(
+                            e,
+                            direction,
+                            ref,
+                            delta,
+                            position,
+                            index,
+                            signatureIndex,
+                        )
+                    }
+                    onDragStop={(e, data) =>
+                        handleOnDrag(e, data, index, signatureIndex)
+                    }
+                >
+                    <img
+                        draggable="false"
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                        }}
+                        src={URL.createObjectURL(s.blob)}
+                        alt="signature"
+                    />
+                </Rnd>
+
+
         ))}
     </Page>
   );

@@ -22,8 +22,8 @@ const AppProvider = ({ children }) => {
     setFile(file);
   }
 
-  const handleAddSignature = (signature) => {
-    setSignature(signature);
+  const handleAddSignature = (newSignature) => {
+    setSignature([...signature, newSignature]);
   };
 
   function handleAddModifiedFile(file) {

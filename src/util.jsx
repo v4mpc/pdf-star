@@ -83,11 +83,6 @@ const downloadPdf = async (pdfFile, signature, signatureMeta) => {
   const arrBff = await blobToArrayBuffer(pdfFile);
   const pdfDoc = await PDFDocument.load(arrBff);
 
-  // const pngSignatureBytes = await blobToArrayBuffer(
-  //   signature[item.signatureIndex].blob,
-  // );
-  // const pngSignature = await pdfDoc.embedPng(pngSignatureBytes);
-
   let pngSignatureBytesPromises = [];
   signature.forEach((item, index) => {
     pngSignatureBytesPromises.push(blobToArrayBuffer(item.blob));
@@ -111,7 +106,6 @@ const downloadPdf = async (pdfFile, signature, signatureMeta) => {
     });
   });
 
-  // TODO: Handle when no signature is add
 
   const signedPdfBytes = await pdfDoc.save();
 

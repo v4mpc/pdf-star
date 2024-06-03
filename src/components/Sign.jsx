@@ -10,12 +10,10 @@ const Sign = () => {
     multiple: false,
     accept: "image/*",
     showUploadList: false,
-    async onChange({ file }) {
-      const { originFileObj } = file;
-      if (originFileObj) {
-        const signatureData = await getImageBlobAndDimensions(originFileObj);
-        await handleAddSignature((curr) => [...curr, signatureData]);
-      }
+    async beforeUpload(file) {
+      const signatureData = await getImageBlobAndDimensions(file);
+      handleAddSignature(signatureData);
+      return false;
     },
   };
 
