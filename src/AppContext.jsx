@@ -26,6 +26,10 @@ const AppProvider = ({ children }) => {
     setSignature([...signature, newSignature]);
   };
 
+  const handleRemoveSignature = (signatureIndex) => {
+    setSignature((curr) => curr.filter((f, index) => index !== signatureIndex));
+  };
+
   function handleAddModifiedFile(file) {
     setModifiedFile(file);
   }
@@ -64,6 +68,7 @@ const AppProvider = ({ children }) => {
         signature,
         handleAddSignature,
         signatureMeta,
+          handleRemoveSignature,
       }}
     >
       {children}
