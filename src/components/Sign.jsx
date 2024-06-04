@@ -4,6 +4,7 @@ import { getImageBlobAndDimensions, readFileAsBlobAsync } from "../util";
 import { useApp } from "../AppContext";
 
 const Sign = () => {
+  const { file } = useApp();
   const { handleAddSignature } = useApp();
   const props = {
     name: "file",
@@ -19,7 +20,11 @@ const Sign = () => {
 
   return (
     <Upload {...props}>
-      <Button type="text" icon={<SignatureOutlined />}>
+      <Button
+        type="text"
+        icon={<SignatureOutlined />}
+        disabled={file===null}
+      >
         Sign
       </Button>
     </Upload>

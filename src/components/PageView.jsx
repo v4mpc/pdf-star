@@ -3,7 +3,7 @@ import styles from "./PageView.module.css";
 
 import { Rnd } from "react-rnd";
 import { useApp } from "../AppContext";
-import { Space, Button, Flex } from "antd";
+import {  Button} from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const PageView = ({ scale, index }) => {
@@ -12,12 +12,6 @@ const PageView = ({ scale, index }) => {
 
   const handleDeleteSignature = (id) => {
     handleRemoveSignature(id);
-    // const index = signatureMeta.current.indexOf(
-    //   signatureMeta.current.filter((f) => (f.id = id))[0],
-    // );
-    // if (index > -1) {
-    //   signatureMeta.current.splice(index, 1);
-    // }
   };
 
   const onPageLoadSuccess = (page) => {
