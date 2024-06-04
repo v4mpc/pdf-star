@@ -27,14 +27,15 @@ const AppProvider = ({ children }) => {
     const pageIndex = 0;
     const id = Date.now();
     const pageInfo = pageMeta.current.filter(
-      (f) => (f.pageIndex = pageIndex),
+      (f) => (f.pageIndex === pageIndex),
     )[0];
+    console.log(pageInfo);
     setSignature([...signature, { id, pageIndex: 0, ...newSignature }]);
     signatureMeta.current.push({
-      height: newSignature.dimensions.height,
-      width: newSignature.dimensions.width,
-      x: pageInfo.width / 2,
-      y: pageInfo.height / 2,
+      height: newSignature.dimensions.height/2,
+      width: newSignature.dimensions.width/2,
+      x: 0,
+      y:0,
       id,
       pageIndex: pageIndex,
     });
@@ -43,6 +44,13 @@ const AppProvider = ({ children }) => {
 
   const handleRemoveSignature = (id) => {
     setSignature(signature.filter((f) => f.id !== id));
+
+      const index = signatureMeta.current.indexOf(
+          signatureMeta.current.filter((f) => (f.id === id))[0],
+      );
+      if (index > -1) {
+          signatureMeta.current.splice(index, 1);
+      }
   };
 
   function handleAddModifiedFile(file) {

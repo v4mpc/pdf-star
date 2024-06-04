@@ -12,13 +12,12 @@ const PageView = ({ scale, index }) => {
 
   const handleDeleteSignature = (id) => {
     handleRemoveSignature(id);
-    const index = signatureMeta.current.indexOf(
-      signatureMeta.current.filter((f) => (f.id = id))[0],
-    );
-    console.log(index);
-    if (index > -1) {
-      signatureMeta.current.splice(index, 1);
-    }
+    // const index = signatureMeta.current.indexOf(
+    //   signatureMeta.current.filter((f) => (f.id = id))[0],
+    // );
+    // if (index > -1) {
+    //   signatureMeta.current.splice(index, 1);
+    // }
   };
 
   const onPageLoadSuccess = (page) => {
@@ -28,6 +27,7 @@ const PageView = ({ scale, index }) => {
       width,
       height,
     });
+    console.log(pageMeta);
   };
 
   const handleOnDrag = (e, data, pageIndex, signatureId) => {

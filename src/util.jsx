@@ -133,9 +133,9 @@ const downloadPdf = async (pdfFile, signature, signatureMeta) => {
 
   signatureMeta.current.forEach((item) => {
     const page = pdfDoc.getPage(item.pageIndex);
+    console.log(pngSignatures)
+      console.log(item)
     const signatureToDraw = pngSignatures.filter((f) => f.data === item.id)[0];
-    console.log(item);
-    console.log(signatureToDraw);
     page.drawImage(signatureToDraw.promisedData, {
       height: item.height,
       width: item.width,
