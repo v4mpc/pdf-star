@@ -11,26 +11,25 @@ const PageView = ({ scale, index }) => {
   let { signatureMeta } = useApp();
 
   const handleOnDrag = (e, data, pageIndex, signatureIndex) => {
-    const index = signatureMeta.current.findIndex(
-      (item) => item.signatureIndex === signatureIndex,
+    let foundSignature = signatureMeta.current.filter(
+      (curr) => curr.id === signatureIndex,
     );
     if (index !== -1) {
-      signatureMeta.current[index].x = data.lastX;
-      signatureMeta.current[index].y = data.lastY;
-      signatureMeta.current[index].pageIndex = pageIndex;
+      foundSignature.x = data.lastX;
+      foundSignature.y = data.lastY;
+      foundSignature.pageIndex = pageIndex;
     } else {
       signatureMeta.current.push({
         height: signature[signatureIndex].dimensions.height,
         width: signature[signatureIndex].dimensions.width,
         x: data.lastX,
         y: data.lastY,
-        signatureIndex: signatureIndex,
+        id: signatureIndex,
         pageIndex,
       });
     }
   };
 
-  const handleDeleteSignature = (signatureIndex) => {};
   const handleResizeStop = async (
     e,
     direction,
@@ -62,7 +61,7 @@ const PageView = ({ scale, index }) => {
       scale={1}
     >
       {signature.length > 0 &&
-        signature.map((s, signatureIndex) => (
+        signature.map((s) => (
           <Rnd
             lockAspectRatio={true}
             resizeHandleClasses={{
@@ -75,25 +74,15 @@ const PageView = ({ scale, index }) => {
               bottomLeft: styles.redCircle,
               bottomRight: styles.redCircle,
             }}
-            key={signatureIndex}
+            key={s.id}
             style={{
               zIndex: 999,
             }}
             bounds="parent"
             onResizeStop={(e, direction, ref, delta, position) =>
-              handleResizeStop(
-                e,
-                direction,
-                ref,
-                delta,
-                position,
-                index,
-                signatureIndex,
-              )
+              handleResizeStop(e, direction, ref, delta, position, index, s.id)
             }
-            onDragStop={(e, data) =>
-              handleOnDrag(e, data, index, signatureIndex)
-            }
+            onDragStop={(e, data) => handleOnDrag(e, data, index, s.id)}
           >
             <div className={styles.imageContainer}>
               <img
@@ -109,9 +98,9 @@ const PageView = ({ scale, index }) => {
                 size="small"
                 type="primary"
                 className={styles.deleteButton}
-                onClick={() => handleRemoveSignature(signatureIndex)}
+                onClick={() => handleRemoveSignature(s.id)}
                 danger={true}
-                key={`button-${signatureIndex}`}
+                key={`button-${s.id}`}
                 shape="circle"
                 icon={<DeleteOutlined />}
               />

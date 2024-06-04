@@ -23,11 +23,11 @@ const AppProvider = ({ children }) => {
   }
 
   const handleAddSignature = (newSignature) => {
-    setSignature([...signature, newSignature]);
+    setSignature([...signature, { id: Date.now(), ...newSignature }]);
   };
 
-  const handleRemoveSignature = (signatureIndex) => {
-    setSignature((curr) => curr.filter((f, index) => index !== signatureIndex));
+  const handleRemoveSignature = (id) => {
+    setSignature(signature.filter((f) => f.id !== id));
   };
 
   function handleAddModifiedFile(file) {
@@ -68,7 +68,7 @@ const AppProvider = ({ children }) => {
         signature,
         handleAddSignature,
         signatureMeta,
-          handleRemoveSignature,
+        handleRemoveSignature,
       }}
     >
       {children}

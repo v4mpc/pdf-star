@@ -79,33 +79,57 @@ function toNumber(value) {
   return number ? parseInt(number[0], 10) : null;
 }
 
+const combinedPromise = async (
+  data,
+  dataToCreatePromise,
+  promiseToCreateData,
+) => {
+  try {
+    const promisedData = await promiseToCreateData(dataToCreatePromise);
+
+    return { data, promisedData };
+  } catch (error) {
+
+    throw error;
+  }
+};
+
 const downloadPdf = async (pdfFile, signature, signatureMeta) => {
   const arrBff = await blobToArrayBuffer(pdfFile);
   const pdfDoc = await PDFDocument.load(arrBff);
 
   let pngSignatureBytesPromises = [];
-  signature.forEach((item, index) => {
-    pngSignatureBytesPromises.push(blobToArrayBuffer(item.blob));
+  signature.forEach((item) => {
+    pngSignatureBytesPromises.push(
+      combinedPromise(item.id, item.blob, blobToArrayBuffer),
+    );
   });
+
 
   let pngSignaturesBytes = await Promise.all(pngSignatureBytesPromises);
   let pngSignaturePromises = [];
-  pngSignaturesBytes.forEach((item, index) => {
-    pngSignaturePromises.push(pdfDoc.embedPng(item));
+  pngSignaturesBytes.forEach((item) => {
+      console.log(item)
+    pngSignaturePromises.push(
+      combinedPromise(item.data, item.promisedData, pdfDoc.embedPng),
+    );
   });
   let pngSignatures = await Promise.all(pngSignaturePromises);
 
-  signatureMeta.current.forEach((item, index) => {
-    const page = pdfDoc.getPage(item.pageIndex);
 
-    page.drawImage(pngSignatures[item.signatureIndex], {
+  signatureMeta.current.forEach((item) => {
+    const page = pdfDoc.getPage(item.pageIndex);
+    const signatureToDraw = pngSignatures.filter(
+      (f) => f.data === item.signatureIndex,
+    )[0];
+
+    page.drawImage(signatureToDraw.promisedData, {
       height: item.height,
       width: item.width,
       x: item.x,
       y: page.getHeight() - item.height - item.y,
     });
   });
-
 
   const signedPdfBytes = await pdfDoc.save();
 
