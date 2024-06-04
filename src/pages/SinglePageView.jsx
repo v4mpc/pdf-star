@@ -20,12 +20,15 @@ const maxWidth = 800;
 
 const SinglePageView = ({ file }) => {
   const [containerWidth] = useState();
+  let { pageMeta } = useApp();
 
   const { numPages, handleSetNumPages, scale, pdfInfo } = useApp();
 
   function onDocumentLoadSuccess(pdf) {
     handleSetNumPages(pdf.numPages);
   }
+
+
 
   return (
     <div>
@@ -39,7 +42,7 @@ const SinglePageView = ({ file }) => {
           options={options}
         >
           {Array.from(new Array(numPages), (el, index) => (
-            <PageView scale={scale} index={index} key={index} />
+            <PageView scale={scale} index={index} key={index}  />
           ))}
         </Document>
       </div>

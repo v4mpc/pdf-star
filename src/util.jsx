@@ -86,10 +86,22 @@ const combinedPromise = async (
 ) => {
   try {
     const promisedData = await promiseToCreateData(dataToCreatePromise);
-
     return { data, promisedData };
   } catch (error) {
+    throw error;
+  }
+};
 
+const combinedPromisePdfDoc = async (
+  data,
+  dataToCreatePromise,
+  pdfDoc,
+  embedPng,
+) => {
+  try {
+    const promisedData = await embedPng.call(pdfDoc, dataToCreatePromise);
+    return { data, promisedData };
+  } catch (error) {
     throw error;
   }
 };
@@ -105,24 +117,25 @@ const downloadPdf = async (pdfFile, signature, signatureMeta) => {
     );
   });
 
-
   let pngSignaturesBytes = await Promise.all(pngSignatureBytesPromises);
   let pngSignaturePromises = [];
   pngSignaturesBytes.forEach((item) => {
-      console.log(item)
     pngSignaturePromises.push(
-      combinedPromise(item.data, item.promisedData, pdfDoc.embedPng),
+      combinedPromisePdfDoc(
+        item.data,
+        item.promisedData,
+        pdfDoc,
+        pdfDoc.embedPng,
+      ),
     );
   });
   let pngSignatures = await Promise.all(pngSignaturePromises);
 
-
   signatureMeta.current.forEach((item) => {
     const page = pdfDoc.getPage(item.pageIndex);
-    const signatureToDraw = pngSignatures.filter(
-      (f) => f.data === item.signatureIndex,
-    )[0];
-
+    const signatureToDraw = pngSignatures.filter((f) => f.data === item.id)[0];
+    console.log(item);
+    console.log(signatureToDraw);
     page.drawImage(signatureToDraw.promisedData, {
       height: item.height,
       width: item.width,

@@ -15,7 +15,6 @@ const Home = () => {
     async onChange({ file }) {
       const { originFileObj } = file;
       if (originFileObj) {
-          console.log('sign');
         const blob = await readFileAsBlobAsync(originFileObj);
         handleAddFile(blob);
         handleSetSelectedPageView("single");

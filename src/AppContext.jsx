@@ -17,13 +17,28 @@ const AppProvider = ({ children }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedPageView, setSelectedPageView] = useState("single");
   let signatureMeta = useRef([]);
+  let pageMeta = useRef([]);
 
   function handleAddFile(file) {
     setFile(file);
   }
 
   const handleAddSignature = (newSignature) => {
-    setSignature([...signature, { id: Date.now(), ...newSignature }]);
+    const pageIndex = 0;
+    const id = Date.now();
+    const pageInfo = pageMeta.current.filter(
+      (f) => (f.pageIndex = pageIndex),
+    )[0];
+    setSignature([...signature, { id, pageIndex: 0, ...newSignature }]);
+    signatureMeta.current.push({
+      height: newSignature.dimensions.height,
+      width: newSignature.dimensions.width,
+      x: pageInfo.width / 2,
+      y: pageInfo.height / 2,
+      id,
+      pageIndex: pageIndex,
+    });
+    console.log(signatureMeta.current)
   };
 
   const handleRemoveSignature = (id) => {
@@ -69,6 +84,7 @@ const AppProvider = ({ children }) => {
         handleAddSignature,
         signatureMeta,
         handleRemoveSignature,
+        pageMeta,
       }}
     >
       {children}

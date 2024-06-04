@@ -8,23 +8,44 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 const PageView = ({ scale, index }) => {
   const { signature, handleRemoveSignature } = useApp();
-  let { signatureMeta } = useApp();
+  let { signatureMeta, pageMeta } = useApp();
 
-  const handleOnDrag = (e, data, pageIndex, signatureIndex) => {
-    let foundSignature = signatureMeta.current.filter(
-      (curr) => curr.id === signatureIndex,
+  const handleDeleteSignature = (id) => {
+    handleRemoveSignature(id);
+    const index = signatureMeta.current.indexOf(
+      signatureMeta.current.filter((f) => (f.id = id))[0],
     );
-    if (index !== -1) {
-      foundSignature.x = data.lastX;
-      foundSignature.y = data.lastY;
-      foundSignature.pageIndex = pageIndex;
+    console.log(index);
+    if (index > -1) {
+      signatureMeta.current.splice(index, 1);
+    }
+  };
+
+  const onPageLoadSuccess = (page) => {
+    const { width, height } = page.getViewport({ scale: 1 });
+    pageMeta.current.push({
+      pageIndex: page._pageIndex,
+      width,
+      height,
+    });
+  };
+
+  const handleOnDrag = (e, data, pageIndex, signatureId) => {
+    let foundSignature = signatureMeta.current.filter(
+      (curr) => curr.id === signatureId,
+    );
+    if (foundSignature.length > 0) {
+      foundSignature[0].x = data.lastX;
+      foundSignature[0].y = data.lastY;
+      foundSignature[0].pageIndex = pageIndex;
     } else {
+      let foundSignature = signature.filter((f) => f.id === signatureId)[0];
       signatureMeta.current.push({
-        height: signature[signatureIndex].dimensions.height,
-        width: signature[signatureIndex].dimensions.width,
+        height: foundSignature.dimensions.height,
+        width: foundSignature.dimensions.width,
         x: data.lastX,
         y: data.lastY,
-        id: signatureIndex,
+        id: signatureId,
         pageIndex,
       });
     }
@@ -37,16 +58,16 @@ const PageView = ({ scale, index }) => {
     delta,
     position,
     pageIndex,
-    signatureIndex,
+    signatureId,
   ) => {
     signatureMeta.current = signatureMeta.current.map((curr) =>
-      curr.signatureIndex === signatureIndex
+      curr.id === signatureId
         ? {
             height: ref.offsetHeight,
             width: ref.offsetWidth,
             x: position.x,
             y: position.y,
-            signatureIndex: signatureIndex,
+            id: signatureId,
             pageIndex,
           }
         : curr,
@@ -59,54 +80,67 @@ const PageView = ({ scale, index }) => {
       key={`page_${index + 1}`}
       pageNumber={index + 1}
       scale={1}
+      onLoadSuccess={(page) => onPageLoadSuccess(page)}
     >
       {signature.length > 0 &&
-        signature.map((s) => (
-          <Rnd
-            lockAspectRatio={true}
-            resizeHandleClasses={{
-              bottom: styles.handleBorderBottom,
-              top: styles.handleBorderTop,
-              right: styles.handleBorderRight,
-              left: styles.handleBorderLeft,
-              topLeft: styles.redCircle,
-              topRight: styles.redCircle,
-              bottomLeft: styles.redCircle,
-              bottomRight: styles.redCircle,
-            }}
-            key={s.id}
-            style={{
-              zIndex: 999,
-            }}
-            bounds="parent"
-            onResizeStop={(e, direction, ref, delta, position) =>
-              handleResizeStop(e, direction, ref, delta, position, index, s.id)
-            }
-            onDragStop={(e, data) => handleOnDrag(e, data, index, s.id)}
-          >
-            <div className={styles.imageContainer}>
-              <img
-                draggable="false"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                src={URL.createObjectURL(s.blob)}
-                alt="signature"
-              />
-              <Button
-                size="small"
-                type="primary"
-                className={styles.deleteButton}
-                onClick={() => handleRemoveSignature(s.id)}
-                danger={true}
-                key={`button-${s.id}`}
-                shape="circle"
-                icon={<DeleteOutlined />}
-              />
-            </div>
-          </Rnd>
-        ))}
+        signature.map((s) =>
+          s.pageIndex === index ? (
+            <Rnd
+              lockAspectRatio={true}
+              resizeHandleClasses={{
+                bottom: styles.handleBorderBottom,
+                top: styles.handleBorderTop,
+                right: styles.handleBorderRight,
+                left: styles.handleBorderLeft,
+                topLeft: styles.redCircle,
+                topRight: styles.redCircle,
+                bottomLeft: styles.redCircle,
+                bottomRight: styles.redCircle,
+              }}
+              key={s.id}
+              style={{
+                zIndex: 999,
+              }}
+              bounds="parent"
+              onResizeStop={(e, direction, ref, delta, position) =>
+                handleResizeStop(
+                  e,
+                  direction,
+                  ref,
+                  delta,
+                  position,
+                  index,
+                  s.id,
+                )
+              }
+              onDragStop={(e, data) => handleOnDrag(e, data, index, s.id)}
+            >
+              <div className={styles.imageContainer}>
+                <img
+                  draggable="false"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  src={URL.createObjectURL(s.blob)}
+                  alt="signature"
+                />
+                <Button
+                  size="small"
+                  type="primary"
+                  className={styles.deleteButton}
+                  onClick={() => handleDeleteSignature(s.id)}
+                  danger={true}
+                  key={`button-${s.id}`}
+                  shape="circle"
+                  icon={<DeleteOutlined />}
+                />
+              </div>
+            </Rnd>
+          ) : (
+            <></>
+          ),
+        )}
     </Page>
   );
 };
