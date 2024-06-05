@@ -1,11 +1,11 @@
-import { Button, Upload,message } from "antd";
+import { Button, Upload, message } from "antd";
 import { SignatureOutlined } from "@ant-design/icons";
 import { getImageBlobAndDimensions, readFileAsBlobAsync } from "../util";
 import { useApp } from "../AppContext";
 
 const Sign = () => {
   const { file } = useApp();
-  const { handleAddSignature } = useApp();
+  const { handleAddSignature, handleSetScale } = useApp();
   const props = {
     name: "file",
     multiple: false,
@@ -14,17 +14,14 @@ const Sign = () => {
     async beforeUpload(file) {
       const signatureData = await getImageBlobAndDimensions(file);
       handleAddSignature(signatureData);
+      handleSetScale(1);
       return false;
     },
   };
 
   return (
     <Upload {...props}>
-      <Button
-        type="text"
-        icon={<SignatureOutlined />}
-        disabled={file===null}
-      >
+      <Button type="text" icon={<SignatureOutlined />} disabled={file === null}>
         Sign
       </Button>
     </Upload>

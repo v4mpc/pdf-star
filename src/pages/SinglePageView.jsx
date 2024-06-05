@@ -37,7 +37,7 @@ const SinglePageView = ({ file }) => {
           className={styles.containerDocument}
           file={file}
           loading=""
-          scale={1}
+          scale={scale}
           onLoadSuccess={onDocumentLoadSuccess}
           options={options}
         >

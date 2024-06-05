@@ -28,6 +28,7 @@ const RemovePage = () => {
     <Button
       type="text"
       danger={true}
+      disabled={selectedIndex===null}
       icon={<DeleteOutlined />}
       onClick={handleRemovePage}
     >

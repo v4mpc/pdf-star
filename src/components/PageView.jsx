@@ -3,7 +3,7 @@ import styles from "./PageView.module.css";
 
 import { Rnd } from "react-rnd";
 import { useApp } from "../AppContext";
-import {  Button} from "antd";
+import { Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
 const PageView = ({ scale, index }) => {
@@ -21,7 +21,6 @@ const PageView = ({ scale, index }) => {
       width,
       height,
     });
-
   };
 
   const handleOnDrag = (e, data, pageIndex, signatureId) => {
@@ -29,16 +28,16 @@ const PageView = ({ scale, index }) => {
       (curr) => curr.id === signatureId,
     );
     if (foundSignature.length > 0) {
-      foundSignature[0].x = data.lastX;
-      foundSignature[0].y = data.lastY;
+      foundSignature[0].x = data.lastX / scale;
+      foundSignature[0].y = data.lastY / scale;
       foundSignature[0].pageIndex = pageIndex;
     } else {
       let foundSignature = signature.filter((f) => f.id === signatureId)[0];
       signatureMeta.current.push({
         height: foundSignature.dimensions.height,
         width: foundSignature.dimensions.width,
-        x: data.lastX,
-        y: data.lastY,
+        x: data.lastX / scale,
+        y: data.lastY / scale,
         id: signatureId,
         pageIndex,
       });
@@ -59,8 +58,8 @@ const PageView = ({ scale, index }) => {
         ? {
             height: ref.offsetHeight,
             width: ref.offsetWidth,
-            x: position.x,
-            y: position.y,
+            x: position.x / scale,
+            y: position.y / scale,
             id: signatureId,
             pageIndex,
           }
@@ -74,7 +73,7 @@ const PageView = ({ scale, index }) => {
       key={`page_${index + 1}`}
       pageNumber={index + 1}
       loading=""
-      scale={1}
+      scale={scale}
       onLoadSuccess={(page) => onPageLoadSuccess(page)}
     >
       {signature.length > 0 &&
