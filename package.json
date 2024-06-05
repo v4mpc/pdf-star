@@ -1,7 +1,7 @@
 {
   "name": "pdf-star",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "electron/main.js",
   "scripts": {
     "dev-only": "vite",
@@ -13,13 +13,18 @@
     "electron:build": "electron-builder"
   },
   "build": {
+    "productName": "PDF Star",
     "appId": "dev.ymahundi.pdf-star-app",
     "files": [
       "dist/**/*",
       "electron/**/*"
     ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "src/assets/icons"
+    },
+    "mac": {
+      "icon": "src/assets/icons/icon.icns",
+      "category": "public.app-category.productivity"
     }
   },
   "dependencies": {

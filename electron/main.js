@@ -18,25 +18,6 @@ const createWindow = () => {
 
   if (process.env.NODE_ENV === 'dev') {
     mainWindow.loadURL('http://localhost:3000');
-    const template = [
-      {
-        label: 'View',
-        submenu: [
-          {
-            role: 'reload',
-          },
-          {
-            role: 'forcereload',
-          },
-          {
-            role: 'toggledevtools',
-          },
-        ],
-      },
-    ];
-    const menu = Menu.buildFromTemplate(template);
-    Menu.setApplicationMenu(menu);
-
   } else {
     mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
   }
