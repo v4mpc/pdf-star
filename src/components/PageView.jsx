@@ -73,6 +73,7 @@ const PageView = ({ scale, index }) => {
       className={styles.page}
       key={`page_${index + 1}`}
       pageNumber={index + 1}
+      loading=""
       scale={1}
       onLoadSuccess={(page) => onPageLoadSuccess(page)}
     >
