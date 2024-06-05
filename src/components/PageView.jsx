@@ -21,7 +21,7 @@ const PageView = ({ scale, index }) => {
       width,
       height,
     });
-    console.log(pageMeta);
+
   };
 
   const handleOnDrag = (e, data, pageIndex, signatureId) => {

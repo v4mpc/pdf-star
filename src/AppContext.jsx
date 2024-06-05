@@ -29,13 +29,12 @@ const AppProvider = ({ children }) => {
   };
 
   const handleAddSignature = (newSignature) => {
-    const pageIndex = 0;
+    const pageIndex = currentPage - 1;
     const id = Date.now();
     const pageInfo = pageMeta.current.filter(
       (f) => f.pageIndex === pageIndex,
     )[0];
-    console.log(pageInfo);
-    setSignature([...signature, { id, pageIndex: 0, ...newSignature }]);
+    setSignature([...signature, { id, pageIndex, ...newSignature }]);
     signatureMeta.current.push({
       height: newSignature.dimensions.height / 2,
       width: newSignature.dimensions.width / 2,

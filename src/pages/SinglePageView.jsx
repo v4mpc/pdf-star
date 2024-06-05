@@ -19,7 +19,7 @@ const options = {
 const maxWidth = 800;
 
 const SinglePageView = ({ file }) => {
-  const [containerWidth] = useState();
+ const {currentPage}=useApp();
   let { pageMeta } = useApp();
 
   const { numPages, handleSetNumPages, scale, pdfInfo } = useApp();
@@ -41,9 +41,9 @@ const SinglePageView = ({ file }) => {
           onLoadSuccess={onDocumentLoadSuccess}
           options={options}
         >
-          {Array.from(new Array(numPages), (el, index) => (
-            <PageView scale={scale} index={index} key={index}  />
-          ))}
+
+            <PageView scale={scale} index={currentPage-1} key={currentPage-1}  />
+
         </Document>
       </div>
     </div>
