@@ -1,4 +1,4 @@
-import { Button, Upload } from "antd";
+import { Button, Upload,message } from "antd";
 import { SignatureOutlined } from "@ant-design/icons";
 import { getImageBlobAndDimensions, readFileAsBlobAsync } from "../util";
 import { useApp } from "../AppContext";

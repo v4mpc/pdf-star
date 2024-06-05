@@ -1,4 +1,4 @@
-import { Flex, Segmented, Space, Select, Button } from "antd";
+import { Flex, Segmented, Space, Select, Button, InputNumber } from "antd";
 
 import { memo } from "react";
 
@@ -9,6 +9,8 @@ import {
   MinusOutlined,
   PlusOutlined,
   SaveOutlined,
+  StepBackwardOutlined,
+  StepForwardOutlined,
 } from "@ant-design/icons";
 import { useApp } from "../AppContext.jsx";
 import { downloadPdf, toPercentage } from "../util.jsx";
@@ -51,7 +53,10 @@ const Header = memo(() => {
     handleSetScale,
     signature,
     signatureMeta,
-
+    numPages,
+    currentPage,
+    handleSetCurrentPage,
+      selectedPageView
   } = useApp();
 
   const increaseScale = () => {
@@ -64,8 +69,24 @@ const Header = memo(() => {
     handleSetScale(Math.max(MIN_SCALE_VALUE, newScale));
   };
 
+  const increasePageNumber = () => {
+    handleSetCurrentPage(Math.min(numPages, currentPage + 1));
+  };
+
+  const decreasePageNumber = () => {
+
+      handleSetCurrentPage(Math.max(1,currentPage-1));
+
+  };
+
   const handleSave = async () => {
     await downloadPdf(file, signature, signatureMeta);
+  };
+
+  const handlePageNumberChanged = (page) => {
+    if (page>=1 && page <=numPages){
+        handleSetCurrentPage(page)
+    }
   };
 
   const handleRemove = () => {
@@ -103,27 +124,57 @@ const Header = memo(() => {
             onChange={handleSetSelectedPageView}
           />
 
-          <Select
-            value={toPercentage(scale)}
-            style={{
-              width: 100,
-            }}
-            options={options}
-            onChange={(value) => handleSetScale(value)}
-          />
+            {file!==null && selectedPageView==='single' &&(
+                <Space>
+                    <Select
+                        value={toPercentage(scale)}
+                        style={{
+                            width: 90,
+                        }}
+                        options={options}
+                        onChange={(value) => handleSetScale(value)}
+                    />
 
-          <ButtonGroup>
-            <Button
-              type="primary"
-              onClick={decreaseScale}
-              icon={<MinusOutlined />}
-            ></Button>
-            <Button
-              type="primary"
-              onClick={increaseScale}
-              icon={<PlusOutlined />}
-            ></Button>
-          </ButtonGroup>
+                    <ButtonGroup>
+                        <Button
+                            type="primary"
+                            onClick={decreaseScale}
+                            icon={<MinusOutlined />}
+                        ></Button>
+                        <Button
+                            type="primary"
+                            onClick={increaseScale}
+                            icon={<PlusOutlined />}
+                        ></Button>
+                    </ButtonGroup>
+
+                    <InputNumber
+                        style={{ width: 60 }}
+                        controls={false}
+                        value={currentPage}
+                        min={1}
+                        // max={numPages}
+                        defaultValue={currentPage}
+                        onChange={handlePageNumberChanged}
+                    />
+                    <span style={{ color: "white" }}> / {numPages} pages</span>
+
+                    <ButtonGroup>
+                        <Button
+                            type="primary"
+                            onClick={decreasePageNumber}
+                            icon={<StepBackwardOutlined />}
+                        ></Button>
+                        <Button
+                            type="primary"
+                            onClick={increasePageNumber}
+                            icon={<StepForwardOutlined />}
+                        ></Button>
+                    </ButtonGroup>
+                </Space>
+            )}
+
+
         </Space>
 
         <Space direction="horizontal">

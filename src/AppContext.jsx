@@ -12,7 +12,8 @@ const AppProvider = ({ children }) => {
   const [file, setFile] = useState(null);
   const [signature, setSignature] = useState([]);
   const [modifiedFile, setModifiedFile] = useState(null);
-  const [numPages, setNumPages] = useState(null);
+  const [numPages, setNumPages] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
   const [scale, setScale] = useState(1);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [selectedPageView, setSelectedPageView] = useState("single");
@@ -23,34 +24,38 @@ const AppProvider = ({ children }) => {
     setFile(file);
   }
 
+  const handleSetCurrentPage = (page) => {
+    setCurrentPage(page);
+  };
+
   const handleAddSignature = (newSignature) => {
     const pageIndex = 0;
     const id = Date.now();
     const pageInfo = pageMeta.current.filter(
-      (f) => (f.pageIndex === pageIndex),
+      (f) => f.pageIndex === pageIndex,
     )[0];
     console.log(pageInfo);
     setSignature([...signature, { id, pageIndex: 0, ...newSignature }]);
     signatureMeta.current.push({
-      height: newSignature.dimensions.height/2,
-      width: newSignature.dimensions.width/2,
+      height: newSignature.dimensions.height / 2,
+      width: newSignature.dimensions.width / 2,
       x: 0,
-      y:0,
+      y: 0,
       id,
       pageIndex: pageIndex,
     });
-    console.log(signatureMeta.current)
+    console.log(signatureMeta.current);
   };
 
   const handleRemoveSignature = (id) => {
     setSignature(signature.filter((f) => f.id !== id));
 
-      const index = signatureMeta.current.indexOf(
-          signatureMeta.current.filter((f) => (f.id === id))[0],
-      );
-      if (index > -1) {
-          signatureMeta.current.splice(index, 1);
-      }
+    const index = signatureMeta.current.indexOf(
+      signatureMeta.current.filter((f) => f.id === id)[0],
+    );
+    if (index > -1) {
+      signatureMeta.current.splice(index, 1);
+    }
   };
 
   function handleAddModifiedFile(file) {
@@ -93,6 +98,8 @@ const AppProvider = ({ children }) => {
         signatureMeta,
         handleRemoveSignature,
         pageMeta,
+        currentPage,
+        handleSetCurrentPage,
       }}
     >
       {children}
