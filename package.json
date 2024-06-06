@@ -32,7 +32,8 @@
       "category": "public.app-category.productivity"
     },
     "linux": {
-      "category": "Utility"
+      "category": "Utility",
+      "icon": "src/assets/icons/icon_256x256.png"
     }
   },
   "dependencies": {
