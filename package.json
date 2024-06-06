@@ -33,8 +33,7 @@
     },
     "linux": {
       "category": "Utility",
-      "target": "snap",
-      "icon": "src/assets/icons/icon_256x256.png"
+      "target": "snap"
     }
   },
   "dependencies": {
