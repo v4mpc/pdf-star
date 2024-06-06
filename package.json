@@ -1,5 +1,10 @@
 {
   "name": "pdf-star",
+  "author": {
+    "email": "yona101992@gmail.com",
+    "name": "Yona Mahundi",
+    "url": "https:ymahundi.dev"
+  },
   "private": true,
   "version": "1.1.0",
   "main": "electron/main.js",
@@ -25,6 +30,11 @@
     "mac": {
       "icon": "src/assets/icons/icon.icns",
       "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "category": "Utility",
+      "target": "snap",
+      "icon": "src/assets/icons/icon_256x256.png"
     }
   },
   "dependencies": {
