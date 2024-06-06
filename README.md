@@ -15,13 +15,19 @@ Pdf Star is a powerful and intuitive PDF editing application that allows you to 
 
 ## Installation
 
-### Prerequisites
 
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [Yarn](https://yarnpkg.com/)
+### Windows and macOS
 
-### Clone the Repository
+- Download the latest .exe for windows and .dmg for macOS respectively.
+- Install per your platform specification.
 
+### Linux
+- Download latest pdf-star_linux_[latest]_amd64.deb
+- Run the following command in downloaded directory
 ```sh
-git clone https://github.com/yourusername/pdf-star.git
-cd pdf-star
+ dpkg -i pdf-star_linux_[latest]_amd64.deb
+```
+
+
+### Build from source.
+- coming soon
